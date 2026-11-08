@@ -11,6 +11,7 @@ export function DropLab() {
   const reduced = useReducedMotion();
   const [visible, setVisible] = useState(false);
   const [lite, setLite] = useState(false);
+  const [pour, setPour] = useState<{ side: -1 | 1; n: number }>({ side: 1, n: 0 });
 
   useEffect(() => {
     setLite(window.matchMedia("(max-width: 768px)").matches);
@@ -29,13 +30,19 @@ export function DropLab() {
         <p className="mt-5 max-w-sm leading-relaxed text-ice/70">{METHOD.lab.text}</p>
       </div>
 
-      <div ref={ref} className="relative aspect-[4/3] w-full overflow-hidden rounded-[2px] bg-[#cfc4b2] sm:aspect-[16/9]">
+      <div>
+      <div
+        ref={ref}
+        role="img"
+        aria-label="Simulação: à esquerda, a gota entra no tecido comum e vira mancha; à direita, no tecido blindado, a gota fica na superfície."
+        className="relative aspect-[4/3] w-full overflow-hidden rounded-[2px] bg-[#cfc4b2] sm:aspect-[16/9]"
+      >
         {reduced ? (
-          <img src="/media/tec-gotas.webp" alt="Gotas de líquido sobre tecido blindado pela PROLAV" className="h-full w-full object-cover" loading="lazy" />
+          <img src="/media/tec-gotas.webp" alt="" className="h-full w-full object-cover" loading="lazy" />
         ) : (
           visible && (
             <Suspense fallback={null}>
-              <Scene lite={lite} />
+              <Scene lite={lite} pour={pour} />
             </Suspense>
           )
         )}
@@ -49,6 +56,18 @@ export function DropLab() {
             {METHOD.lab.hint}
           </p>
         )}
+      </div>
+      {/* WCAG 2.1.1: alternativa por teclado/toque ao clique no canvas */}
+      {!reduced && (
+        <div className="mt-3 grid grid-cols-2 gap-3">
+          <button type="button" onClick={() => setPour((p) => ({ side: -1, n: p.n + 1 }))} className="min-h-11 border border-ice/25 px-3 text-sm text-ice transition-colors hover:border-ice/60">
+            Pingar no tecido comum
+          </button>
+          <button type="button" onClick={() => setPour((p) => ({ side: 1, n: p.n + 1 }))} className="min-h-11 border border-ice/25 px-3 text-sm text-ice transition-colors hover:border-ice/60">
+            Pingar no tecido blindado
+          </button>
+        </div>
+      )}
       </div>
     </div>
   );

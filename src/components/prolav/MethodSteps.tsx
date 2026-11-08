@@ -32,9 +32,9 @@ export function MethodSteps() {
             key={s.n}
             ref={(el) => { refs.current[i] = el; }}
             data-i={i}
-            className={`border-t border-rule py-10 transition-opacity duration-500 lg:flex lg:min-h-[62vh] lg:flex-col lg:justify-center lg:py-0 ${i === active ? "lg:opacity-100" : "lg:opacity-30"}`}
+            className={`border-t border-rule py-10 transition-opacity duration-500 lg:flex lg:min-h-[62vh] lg:flex-col lg:justify-center lg:py-0 ${i === active ? "lg:opacity-100" : "lg:opacity-70"}`}
           >
-            <span className="font-mono text-sm text-ink/50">{s.n} / 04</span>
+            <span className="font-mono text-sm text-ink/70">{s.n} / 04</span>
             <h3 className="mt-4 text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">{s.title}</h3>
             <p className="mt-5 max-w-lg text-base leading-relaxed text-ink/70 sm:text-lg">{s.text}</p>
             {/* Vídeo inline só no celular */}
@@ -64,7 +64,7 @@ export function MethodSteps() {
             </AnimatePresence>
             <div className="specimen-corners" />
           </div>
-          <figcaption className="specimen-caption label-mono text-ink/55">
+          <figcaption className="specimen-caption label-mono text-ink/70">
             <span>{current.n} — {current.title}</span>
             <span>Registro real</span>
           </figcaption>

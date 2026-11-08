@@ -31,7 +31,7 @@ export function MethodSection() {
       {/* ── Papel: abertura + passo a passo ── */}
       <div className="grain bg-paper text-ink">
         <div className="relative mx-auto max-w-7xl px-5 pb-10 pt-24 lg:px-8 lg:pt-32">
-          <p className="section-index label-mono text-ink/60">{METHOD.index} <span>{METHOD.kicker}</span></p>
+          <p className="section-index label-mono text-ink/70">{METHOD.index} <span>{METHOD.kicker}</span></p>
           <div className="mt-10 grid gap-10 lg:grid-cols-[1.3fr_0.7fr] lg:items-end">
             <Reveal>
               <h2 id="metodo-title" className="text-5xl font-semibold leading-[0.95] sm:text-7xl lg:text-[6.5rem]">
@@ -66,7 +66,7 @@ export function MethodSection() {
                     <ViewportVideo src={`/media/tec-${p.media}.mp4`} poster={`/media/tec-${p.media}.webp`} label={p.caption} className="h-full w-full object-cover" />
                     <div className="specimen-corners" />
                   </div>
-                  <figcaption className="specimen-caption label-mono text-ice/55"><span>{p.caption}</span><span>0{i + 1}</span></figcaption>
+                  <figcaption className="specimen-caption label-mono text-ice/70"><span>{p.caption}</span><span>0{i + 1}</span></figcaption>
                 </figure>
               </Reveal>
             ))}
@@ -91,10 +91,10 @@ export function MethodSection() {
           <Reveal><h3 className="text-4xl font-semibold leading-tight sm:text-5xl">{compare.title}</h3></Reveal>
           <div className="mt-12 grid border-t border-ink md:grid-cols-2">
             <Reveal className="border-b border-rule py-8 md:border-b-0 md:border-r md:pr-10">
-              <p className="label-mono text-ink/50">{compare.them.label}</p>
+              <p className="label-mono text-ink/70">{compare.them.label}</p>
               <ul className="mt-6 space-y-4">
                 {compare.them.items.map((t) => (
-                  <li key={t} className="flex gap-3 text-lg text-ink/55"><Minus className="mt-1.5 h-4 w-4 shrink-0" aria-hidden="true" />{t}</li>
+                  <li key={t} className="flex gap-3 text-lg text-ink/70"><Minus className="mt-1.5 h-4 w-4 shrink-0" aria-hidden="true" />{t}</li>
                 ))}
               </ul>
             </Reveal>
@@ -109,7 +109,7 @@ export function MethodSection() {
           </div>
 
           <Reveal className="mt-20 flex flex-col gap-6 border-t border-rule pt-10 lg:flex-row lg:items-center lg:justify-between">
-            <p className="label-mono text-ink/55">{METHOD.microproof}</p>
+            <p className="label-mono text-ink/70">{METHOD.microproof}</p>
             <button onClick={() => openWhatsApp("metodo", METHOD.ctaMessage)} className="btn-whatsapp h-14 px-7 text-base">
               <WhatsAppIcon className="h-5 w-5" />
               {METHOD.cta}

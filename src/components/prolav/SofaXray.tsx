@@ -48,7 +48,7 @@ function DesktopXray() {
       <motion.div key={stage} className={`relative z-10 ${stage === 2 ? "w-[55%]" : "max-w-[57%]"}`} initial={reduced ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduced ? 0 : 0.25 }}><StageText index={stage} /></motion.div>
       <div className={`absolute right-28 top-1/2 -translate-y-1/2 transition-opacity duration-500 ${stage === 2 ? "opacity-100" : "pointer-events-none invisible opacity-0"}`}><Proof active={stage === 2} /></div>
     </div>
-    <nav className="xray-progress" aria-label="Progresso do raio-X"><div className="xray-progress-track"><motion.div className="h-full origin-top bg-brand-green" style={{ scaleY: fill }} /></div>{PROBLEM.stages.map((s, i) => <div key={s.label} className={`xray-marker ${i === stage ? "text-cyan-soft" : "text-ice/45"}`} aria-current={stage === i ? "step" : undefined}><span className={i <= stage ? "bg-brand-green" : "bg-ice/30"} /><span>{s.label}</span></div>)}</nav>
+    <nav className="xray-progress" aria-label="Progresso do raio-X"><div className="xray-progress-track"><motion.div className="h-full origin-top bg-brand-green" style={{ scaleY: fill }} /></div>{PROBLEM.stages.map((s, i) => <div key={s.label} className={`xray-marker ${i === stage ? "text-cyan-soft" : "text-ice/70"}`} aria-current={stage === i ? "step" : undefined}><span className={i <= stage ? "bg-brand-green" : "bg-ice/30"} /><span>{s.label}</span></div>)}</nav>
   </div></div>;
 }
 

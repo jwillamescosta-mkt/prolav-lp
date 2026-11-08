@@ -7,6 +7,7 @@ import { openWhatsApp } from "@/lib/tracking";
 const NAV = [
   { href: "#problema", label: "O problema" },
   { href: "#tecnologia", label: "Método" },
+  { href: "#resultados", label: "Resultados" },
 ];
 
 export function Header() {

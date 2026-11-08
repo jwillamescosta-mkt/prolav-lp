@@ -112,3 +112,50 @@ export const QUIZ = {
   cta: "Receber meu orçamento com esse diagnóstico",
   microproof: "Orçamento sem compromisso • Resposta em minutos • Mande uma foto do estofado e agilizamos",
 };
+
+// ETAPA 4 — Resultados reais (antes → durante → depois no mesmo vídeo).
+export type ResultCase = {
+  key: string;
+  title: string;
+  text: string;
+  tag: string;
+  src: string;
+  poster: string;
+  /** Início de cada capítulo, em segundos, dentro do clipe. */
+  chapters: { label: "Antes" | "Durante" | "Depois"; at: number }[];
+};
+
+export const RESULTS = {
+  index: "04",
+  kicker: "Resultados reais",
+  title: "Arraste e veja.",
+  titleEmphasis: "O mesmo sofá, do antes ao depois.",
+  lead: "Nada de banco de imagens. São vídeos de clientes da PROLAV em Maceió, sem filtro — só cortados para caber na tela.",
+  scrubLabel: "Linha do tempo do resultado",
+  hint: "Arraste a linha do tempo ou toque nos capítulos",
+  play: "Reproduzir",
+  pause: "Pausar",
+  cases: [
+    {
+      key: "manchas",
+      title: "Manchas que pareciam permanentes",
+      text: "Sofá retrátil com manchas antigas. Pré-tratamento escolhido para o tecido e extração profunda — sem esfregar e sem encharcar.",
+      tag: "Sofá retrátil · Maceió/AL",
+      src: "/media/ba-sofa-manchas.mp4",
+      poster: "/media/ba-sofa-manchas.webp",
+      chapters: [{ label: "Antes", at: 0 }, { label: "Durante", at: 4 }, { label: "Depois", at: 7 }],
+    },
+    {
+      key: "pet",
+      title: "As marcas de quem sobe no sofá todo dia",
+      text: "Marcas e odor do cachorro da casa no encosto claro. Higienização com produtos seguros para o pet.",
+      tag: "Sofá claro · tutores de pet",
+      src: "/media/ba-sofa-pet.mp4",
+      poster: "/media/ba-sofa-pet.webp",
+      chapters: [{ label: "Antes", at: 0 }, { label: "Durante", at: 3 }, { label: "Depois", at: 5 }],
+    },
+  ] satisfies ResultCase[],
+  cta: "Quero esse resultado no meu sofá",
+  ctaMessage: "Olá, PROLAV! Vi os resultados no site e quero um orçamento. Posso mandar uma foto do meu estofado?",
+  microproof: "Mande uma foto do estofado · Resposta em minutos · Sem compromisso",
+};

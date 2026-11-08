@@ -1,6 +1,6 @@
 // "Teste da gota" em three.js: metade esquerda absorve (mancha), metade direita está blindada (gota perolada).
 // Carregado sob demanda e só montado quando visível (ver DropLab.tsx).
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { Canvas, useFrame, type ThreeEvent } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -27,7 +27,9 @@ function makeFabric() {
   return t;
 }
 
-function Lab({ lite }: { lite: boolean }) {
+type Pour = { side: -1 | 1; n: number };
+
+function Lab({ lite, pour }: { lite: boolean; pour?: Pour | undefined }) {
   const fabric = useMemo(makeFabric, []);
   // Canvas de manchas cobrindo só a metade esquerda
   const stainCanvas = useMemo(() => { const c = document.createElement("canvas"); c.width = 512; c.height = 768; return c; }, []);
@@ -53,6 +55,14 @@ function Lab({ lite }: { lite: boolean }) {
       spawn(Math.sign(sx) === side ? sx : x, z + Math.sin(a) * r * 0.7, 0.05 + Math.random() * 0.07, 0.3 + Math.random() * 0.6);
     }
   };
+
+  // Botões acessíveis (fora do canvas) pedem um respingo em um dos lados
+  useEffect(() => {
+    if (!pour || pour.n === 0) return;
+    auto.current.pausedUntil = auto.current.now + 8;
+    splash(pour.side * (0.5 + Math.random() * (lite ? 1.2 : 2.2)), (Math.random() - 0.5) * 2);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pour?.n]);
 
   const drawStains = () => {
     const g = stainCanvas.getContext("2d")!;
@@ -163,10 +173,10 @@ function Lab({ lite }: { lite: boolean }) {
   );
 }
 
-export default function DropLabScene({ lite = false }: { lite?: boolean }) {
+export default function DropLabScene({ lite = false, pour }: { lite?: boolean; pour?: Pour }) {
   return (
     <Canvas dpr={lite ? 1 : [1, 1.75]} camera={{ position: [0, 4.1, 4.3], fov: 40 }} gl={{ antialias: true, alpha: true, powerPreference: "low-power" }} style={{ cursor: "crosshair", touchAction: "pan-y" }}>
-      <Lab lite={lite} />
+      <Lab lite={lite} pour={pour} />
     </Canvas>
   );
 }

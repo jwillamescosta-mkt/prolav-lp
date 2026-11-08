@@ -11,3 +11,8 @@
 - [x] Teste da gota em three.js (sem blindagem mancha × com blindagem perolada), interativo, montado só quando visível.
 - [x] Prova real (gotas e vinho), segurança da blindagem, comparação informal × PROLAV e CTA de WhatsApp.
 - [ ] Confirmar autorização de uso de imagem do depoimento e da clínica.
+
+# Etapa 4 — PROLAV (resultados reais + acessibilidade)
+- [x] Linha do tempo arrastável antes → durante → depois em vídeos reais (sem legendas embutidas), mobile first.
+- [x] Lógica de capítulos em módulo puro testado (src/lib/chapters.ts).
+- [x] WCAG: botão de pausar em todo vídeo automático (2.2.2), atalho "pular para o conteúdo" (2.4.1), foco visível (2.4.7), contraste AA nos textos de apoio, alternativa por botão ao clique no canvas 3D (2.1.1), alvos de toque ≥ 44px.

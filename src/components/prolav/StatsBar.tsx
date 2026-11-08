@@ -30,7 +30,7 @@ export function StatsBar() {
               <span className="em-serif text-4xl leading-none lg:text-5xl">{s.label}</span>
             )}
             {s.value !== undefined && <span className="text-sm font-medium">{s.label}</span>}
-            <span className="label-mono text-ink/55">{s.note}</span>
+            <span className="label-mono text-ink/70">{s.note}</span>
           </li>
         ))}
       </ul>

@@ -54,7 +54,7 @@ export function Hero({ media }: { media?: ReactNode }) {
 
       <div className="mx-auto grid min-h-[100svh] w-full max-w-7xl grid-cols-1 items-end gap-12 px-5 pb-16 pt-28 lg:grid-cols-[1.35fr_0.65fr] lg:items-center lg:gap-16 lg:px-8 lg:pb-20">
         <div className="relative z-10">
-          <motion.p {...rise(0)} className="label-mono text-ice/60">
+          <motion.p {...rise(0)} className="label-mono text-ice/70">
             {HERO.badge}
           </motion.p>
           <motion.div {...rise(0.05)} className="mt-7">
@@ -89,7 +89,7 @@ export function Hero({ media }: { media?: ReactNode }) {
             <ViewportVideo src="/media/tec-extracao.mp4" poster="/media/tec-extracao.webp" label="Técnico da PROLAV fazendo extração profunda em sofá" className="h-full w-full object-cover" />
             <div className="specimen-corners" />
           </div>
-          <figcaption className="specimen-caption label-mono text-ice/55">
+          <figcaption className="specimen-caption label-mono text-ice/70">
             <span>{HERO_MEDIA.caption}</span>
             <span>{HERO_MEDIA.place}</span>
           </figcaption>
