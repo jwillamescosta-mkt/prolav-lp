@@ -6,9 +6,9 @@ import { StatsBar } from "@/components/prolav/StatsBar";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PROLAV – Higienização e Blindagem de Estofados em Maceió" },
+      { title: "PROLAV | Higienização & Blindagem de Estofados em Maceió" },
       { name: "description", content: "Extração profunda contra ácaros, fungos e odores + blindagem têxtil. Orçamento grátis no WhatsApp. Ponta Verde, Pajuçara, Jatiúca e região." },
-      { property: "og:title", content: "PROLAV – Higienização e Blindagem de Estofados em Maceió" },
+      { property: "og:title", content: "PROLAV | Higienização & Blindagem de Estofados em Maceió" },
       { property: "og:description", content: "Seu sofá limpo de verdade, sua família respirando melhor. Orçamento grátis no WhatsApp." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

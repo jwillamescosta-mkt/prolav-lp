@@ -6,7 +6,7 @@ import * as THREE from "three";
 
 type Props = { count: number; lite: boolean };
 
-function Bubbles({ count }: { count: number }) {
+function Bubbles({ count, color, opacity, seed }: { count: number; color: string; opacity: number; seed: number }) {
   const ref = useRef<THREE.InstancedMesh>(null);
   const dummy = useMemo(() => new THREE.Object3D(), []);
   // Posições e velocidades geradas uma única vez
@@ -20,7 +20,7 @@ function Bubbles({ count }: { count: number }) {
         v: 0.15 + Math.random() * 0.35,
         p: Math.random() * Math.PI * 2,
       })),
-    [count],
+    [count, seed],
   );
 
   useFrame((state, delta) => {
@@ -51,13 +51,13 @@ function Bubbles({ count }: { count: number }) {
     <instancedMesh ref={ref} args={[undefined, undefined, count]}>
       <sphereGeometry args={[1, 24, 24]} />
       <meshPhysicalMaterial
-        color="#7dd3fc"
-        emissive="#06b6d4"
+        color={color}
+        emissive={color}
         emissiveIntensity={0.25}
         roughness={0.1}
         transmission={0.6}
         transparent
-        opacity={0.55}
+        opacity={opacity}
       />
     </instancedMesh>
   );
@@ -73,8 +73,10 @@ export default function HeroScene({ count, lite }: Props) {
     >
       <ambientLight intensity={0.6} />
       <directionalLight position={[3, 5, 4]} intensity={1.4} color="#e0f2fe" />
-      <pointLight position={[-4, -2, 2]} intensity={8} color="#0ea5e9" />
-      <Bubbles count={count} />
+      <pointLight position={[-4, -2, 2]} intensity={8} color="#0088FF" />
+      {/* Gotas azuis (símbolo) + espuma verde, com opacidades diferentes */}
+      <Bubbles count={Math.round(count * 0.6)} color="#0088FF" opacity={0.6} seed={1} />
+      <Bubbles count={Math.round(count * 0.4)} color="#00D38C" opacity={0.35} seed={2} />
     </Canvas>
   );
 }

@@ -6,6 +6,7 @@ import { ChevronDown, ShieldCheck } from "lucide-react";
 import { HERO } from "@/data/content";
 import { openWhatsApp } from "@/lib/tracking";
 import { WhatsAppIcon } from "./WhatsAppIcon";
+import simbolo from "@/assets/prolav-simbolo-cor.svg";
 
 const HeroScene = lazy(() => import("./HeroScene"));
 
@@ -41,11 +42,13 @@ export function Hero({ media }: { media?: ReactNode }) {
 
       <div className="mx-auto w-full max-w-6xl px-5 pb-24 pt-28">
         <div className="max-w-3xl">
+          {/* Símbolo como marca d'água sutil */}
+          <img src={simbolo} alt="" aria-hidden="true" width={642} height={588} className="pointer-events-none absolute right-[-6%] top-1/2 -z-10 hidden w-[42vw] max-w-[620px] -translate-y-1/2 opacity-[0.05] lg:block" />
           <motion.p {...fade(0)} className="inline-flex items-center gap-2 rounded-full border border-cyan/30 bg-cyan/10 px-3 py-1 text-xs font-medium text-cyan-soft sm:text-sm">
             <ShieldCheck className="h-4 w-4" aria-hidden="true" />
             {HERO.badge}
           </motion.p>
-          <h1 className="mt-6 font-display text-4xl font-extrabold leading-[1.08] tracking-tight text-ice sm:text-5xl lg:text-6xl">
+          <h1 className="mt-6 font-display text-4xl font-bold leading-[1.08] tracking-tight text-ice sm:text-5xl lg:text-6xl">
             {HERO.title}
           </h1>
           <motion.p {...fade(0.1)} className="mt-6 max-w-2xl text-base leading-relaxed text-ice/80 sm:text-lg">
