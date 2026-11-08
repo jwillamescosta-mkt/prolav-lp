@@ -1,23 +1,32 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Header } from "@/components/prolav/Header";
+import { Hero } from "@/components/prolav/Hero";
+import { StatsBar } from "@/components/prolav/StatsBar";
 
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "PROLAV – Higienização e Blindagem de Estofados em Maceió" },
+      { name: "description", content: "Extração profunda contra ácaros, fungos e odores + blindagem têxtil. Orçamento grátis no WhatsApp. Ponta Verde, Pajuçara, Jatiúca e região." },
+      { property: "og:title", content: "PROLAV – Higienização e Blindagem de Estofados em Maceió" },
+      { property: "og:description", content: "Seu sofá limpo de verdade, sua família respirando melhor. Orçamento grátis no WhatsApp." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <>
+      <Header />
+      <main>
+        <Hero />
+        <StatsBar />
+        {/* ETAPA 2 – seção "problema" (placeholder) */}
+        <section id="problema" aria-label="Etapa 2" className="min-h-[60vh] bg-navy" />
+      </main>
+    </>
   );
 }

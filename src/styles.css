@@ -153,3 +153,54 @@
     color: var(--color-foreground);
   }
 }
+
+/* ============ PROLAV – design tokens ============ */
+:root {
+  --navy: oklch(0.22 0.05 255);        /* #0B1E36 */
+  --cyan: oklch(0.71 0.13 215);        /* #06B6D4 */
+  --sky: oklch(0.68 0.15 237);         /* #0EA5E9 */
+  --cyan-soft: oklch(0.86 0.09 215);   /* ciano claro p/ texto AA sobre navy */
+  --ice: oklch(0.98 0.003 248);        /* #F8FAFC */
+  --slate-deep: oklch(0.28 0.04 260);  /* #1E293B */
+  --gold: oklch(0.70 0.13 62);         /* #D98E3A */
+  --whatsapp: oklch(0.76 0.19 150);    /* #25D366 */
+  --shadow-wa: 0 10px 30px -8px color-mix(in oklab, var(--whatsapp) 55%, transparent);
+  --gradient-hero: radial-gradient(ellipse at 70% 30%, color-mix(in oklab, var(--sky) 22%, var(--navy)) 0%, var(--navy) 65%);
+  --gradient-veil: linear-gradient(90deg, color-mix(in oklab, var(--navy) 85%, transparent) 0%, color-mix(in oklab, var(--navy) 35%, transparent) 70%, transparent 100%);
+}
+
+@theme inline {
+  --color-navy: var(--navy);
+  --color-cyan: var(--cyan);
+  --color-sky: var(--sky);
+  --color-cyan-soft: var(--cyan-soft);
+  --color-ice: var(--ice);
+  --color-slate-deep: var(--slate-deep);
+  --color-gold: var(--gold);
+  --color-whatsapp: var(--whatsapp);
+  --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { font-family: var(--font-sans); background-color: var(--navy); color: var(--ice); }
+}
+
+@utility bg-hero { background: var(--gradient-hero); }
+@utility bg-hero-veil { background: var(--gradient-veil); }
+
+/* Botão de contato WhatsApp — texto navy garante contraste AA sobre o verde */
+@utility btn-whatsapp {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  border-radius: 0.5rem; font-weight: 700;
+  background: var(--whatsapp); color: var(--navy);
+  transition: transform .2s, filter .2s;
+  &:hover { filter: brightness(1.07); transform: translateY(-1px); }
+  &:focus-visible { outline: 3px solid var(--cyan-soft); outline-offset: 2px; }
+}
+
+@keyframes wa-pulse { 0%,100% { box-shadow: var(--shadow-wa), 0 0 0 0 color-mix(in oklab, var(--whatsapp) 50%, transparent); } 50% { box-shadow: var(--shadow-wa), 0 0 0 12px transparent; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
