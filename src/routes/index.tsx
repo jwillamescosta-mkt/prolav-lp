@@ -3,6 +3,7 @@ import { Header } from "@/components/prolav/Header";
 import { Hero } from "@/components/prolav/Hero";
 import { StatsBar } from "@/components/prolav/StatsBar";
 import { ProblemSection } from "@/components/prolav/ProblemSection";
+import { MethodSection } from "@/components/prolav/MethodSection";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -26,8 +27,7 @@ function Index() {
         <Hero />
         <StatsBar />
         <ProblemSection />
-        {/* ETAPA 3 — espaço reservado, sem conteúdo antecipado. */}
-        <section id="tecnologia" aria-label="Etapa 3" className="bg-navy" />
+        <MethodSection />
       </main>
     </>
   );

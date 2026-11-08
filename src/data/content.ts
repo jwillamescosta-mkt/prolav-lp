@@ -8,21 +8,69 @@ export const WHATSAPP_MESSAGE =
   "Olá, PROLAV! Quero um orçamento grátis de higienização/blindagem de estofados.";
 
 export const HERO = {
-  badge: "Higienização & Blindagem de Estofados • Maceió",
+  badge: "Higienização & blindagem de estofados — Maceió/AL",
   title: "Seu sofá parece limpo. Mas é lá dentro que mora o problema.",
+  /** Trecho do título destacado em serifa itálica. */
+  titleEmphasis: "lá dentro",
   subtitle:
-    "Extração profunda elimina ácaros, fungos e odores que a aspiração não alcança. A blindagem têxtil protege contra manchas e líquidos por muito mais tempo. Seu estofado limpo de verdade, sua família respirando melhor.",
+    "A extração profunda remove ácaros, fungos e odores que a aspiração não alcança. A blindagem têxtil protege contra manchas e líquidos por muito mais tempo. Estofado limpo de verdade, família respirando melhor.",
   ctaPrimary: "Quero meu orçamento grátis no WhatsApp",
   ctaSecondary: "Ver como funciona ↓",
   microproof: ["Resposta em minutos", "Técnicos uniformizados", "Pontualidade garantida"],
 };
 
-/** Provas rápidas (números provisórios). */
-export const STATS: { prefix?: string; value?: number; suffix?: string; label: string }[] = [
-  { prefix: "+", value: 500, label: "estofados higienizados" },
-  { value: 100, suffix: "%", label: "produtos certificados" },
-  { label: "Garantia de satisfação" },
+/** Provas rápidas — fatos do playbook da PROLAV. */
+export const STATS: { prefix?: string; value?: number; suffix?: string; label: string; note: string }[] = [
+  { prefix: "+", value: 500, label: "estofados higienizados", note: "em Maceió e região" },
+  { value: 5, suffix: " anos", label: "de atuação", note: "desde 2021" },
+  { label: "Prêmio Oscar Alagoano", note: "10ª edição · destaque em serviços" },
 ];
+
+/** Etiqueta do vídeo real exibido no hero. */
+export const HERO_MEDIA = {
+  caption: "Extração profunda · registro real",
+  place: "Maceió/AL",
+};
+
+// ETAPA 3 — Método: extração profunda + blindagem.
+export const METHOD = {
+  index: "03",
+  kicker: "O método PROLAV",
+  title: ["Extração profunda.", "Sem encharcar."],
+  lead: "Sabão e água em excesso empurram a sujeira para dentro da espuma — e, com a umidade de Maceió, isso vira mofo. A PROLAV faz o contrário: solta a sujeira da fibra e puxa tudo para fora.",
+  steps: [
+    { n: "01", title: "Avaliação do tecido", text: "Identificamos a fibra — linho, suede, veludo, couro — e testamos em área escondida. Cada tecido pede um cuidado diferente.", media: "pretratamento" },
+    { n: "02", title: "Pré-tratamento por fibra", text: "Produtos certificados e hipoalergênicos, escolhidos para o tipo de mancha e de tecido. Nada de receita caseira que espalha a mancha.", media: "pretratamento" },
+    { n: "03", title: "Extração de alto vácuo", text: "A extratora profissional injeta e suga ao mesmo tempo. A sujeira sai junto com a água, e o estofado não fica encharcado.", media: "extracao" },
+    { n: "04", title: "Blindagem têxtil", text: "Uma resina à base de água envolve cada fio. Líquido derramado vira gota na superfície, em vez de entrar na espuma.", media: "gotas" },
+  ],
+  lab: {
+    kicker: "Teste da gota",
+    title: "Toque no tecido e derrame.",
+    text: "À esquerda, tecido comum. À direita, tecido com blindagem PROLAV. É o mesmo princípio dos vídeos abaixo — só que aqui você testa.",
+    left: "Sem blindagem",
+    right: "Com blindagem",
+    hint: "Clique ou toque para pingar",
+  },
+  proofTitle: "Café, vinho, suco. Escorre — não entra.",
+  proofs: [
+    { media: "gotas", caption: "Isotônico sobre linho blindado" },
+    { media: "vinho", caption: "Vinho sobre estofado de clínica" },
+  ],
+  safety: [
+    { title: "Base água, não inflamável", text: "Seguro para aplicar dentro do apartamento." },
+    { title: "Perto de crianças e pets", text: "Produtos hipoalergênicos e certificados." },
+    { title: "Cor e toque preservados", text: "O tecido continua com a mesma aparência." },
+  ],
+  compare: {
+    title: "Por que não é só uma lavagem",
+    them: { label: "Limpeza informal", items: ["Sabão comum e água em excesso", "Sujeira empurrada para a espuma", "Risco de mofo e mau cheiro", "Sem garantia sobre o tecido"] },
+    us: { label: "PROLAV", items: ["Extratora profissional de alto vácuo", "Sujeira extraída, não espalhada", "Secagem sem encharcar a espuma", "Garantia de integridade do tecido"] },
+  },
+  cta: "Quero higienizar e blindar meu estofado",
+  ctaMessage: "Olá, PROLAV! Vi o método no site e quero orçamento de higienização + blindagem.",
+  microproof: "Orçamento sem compromisso · Técnicos uniformizados · Pontualidade",
+};
 
 // ETAPA 2 — textos centralizados para facilitar revisões sem alterar os componentes.
 export const PROBLEM = {

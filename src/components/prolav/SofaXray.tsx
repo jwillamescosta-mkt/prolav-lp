@@ -44,7 +44,7 @@ function DesktopXray() {
   return <div ref={ref} className="xray-scroll hidden md:block"><div className="xray-pin">
     <div className={`absolute inset-0 transition-opacity duration-700 ${stage === 2 ? "opacity-10" : "opacity-100"}`}><LazyScene progress={scrollYProgress} stage={stage} /></div>
     <div className={`xray-veil absolute inset-0 ${stage === 0 ? "xray-surface-veil" : ""}`} />
-    <div className="relative mx-auto flex h-full w-full max-w-6xl items-center px-8 pr-28">
+    <div className="relative mx-auto flex h-full w-full max-w-7xl items-center px-8 pr-28">
       <motion.div key={stage} className={`relative z-10 ${stage === 2 ? "w-[55%]" : "max-w-[57%]"}`} initial={reduced ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduced ? 0 : 0.25 }}><StageText index={stage} /></motion.div>
       <div className={`absolute right-28 top-1/2 -translate-y-1/2 transition-opacity duration-500 ${stage === 2 ? "opacity-100" : "pointer-events-none invisible opacity-0"}`}><Proof active={stage === 2} /></div>
     </div>

@@ -31,7 +31,7 @@ export function DiagnosisQuiz() {
   };
   return <section className="border-t border-ice/10 px-5 py-20 lg:py-24" aria-labelledby="quiz-title"><div className="mx-auto max-w-3xl">
     <p className="section-kicker">{QUIZ.kicker}</p><h2 id="quiz-title" className="mt-4 max-w-2xl text-3xl font-bold leading-tight sm:text-4xl">{QUIZ.title}</h2>
-    <div className="quiz-glass mt-8 overflow-hidden rounded-lg border border-ice/15">
+    <div className="quiz-glass mt-8 overflow-hidden">
       <div className="h-1 bg-ice/10" role="progressbar" aria-label={QUIZ.kicker} aria-valuemin={0} aria-valuemax={4} aria-valuenow={Math.min(step + 1, 4)}><motion.div className="h-full origin-left bg-brand-green" animate={{ scaleX: Math.min(step + 1, 4) / 4 }} transition={{ duration: reduced ? 0 : 0.4 }} /></div>
       <div className="p-6 sm:p-9"><AnimatePresence mode="wait"><motion.div key={step} initial={reduced ? false : { opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} transition={{ duration: reduced ? 0 : 0.18 }}>
         {step < 4 ? <><div className="mb-6 flex items-start justify-between gap-4"><h3 className="text-xl font-semibold" id="quiz-question">{QUIZ.questions[step]}</h3><span className="shrink-0 font-mono text-xs text-cyan-soft">0{step + 1} / 04</span></div>

@@ -184,29 +184,80 @@
   --color-slate-deep: var(--slate-deep);
   --color-gold: var(--gold);
   --color-whatsapp: var(--whatsapp);
-  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Inter Tight", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-rule: var(--rule);
+  --color-navy-deep: var(--navy-deep);
+}
+
+/* ===== Sistema editorial "laboratório têxtil" =====
+   Papel claro alternando com navy profundo; tinta navy em vez de preto;
+   linhas finas (hairlines) no lugar de sombras, brilhos e vidro. */
+:root {
+  --paper: oklch(0.975 0.004 85);      /* papel levemente quente */
+  --ink: oklch(0.24 0.08 262);         /* texto principal no papel (navy escuro) */
+  --rule: color-mix(in oklab, var(--ink) 14%, transparent);
+  --rule-dark: color-mix(in oklab, var(--ice) 14%, transparent);
+  --navy-deep: oklch(0.2 0.07 262);
 }
 
 @layer base {
   html { scroll-behavior: smooth; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-  body { font-family: var(--font-sans); background-color: var(--navy); color: var(--ice); }
+  body { font-family: var(--font-sans); background-color: var(--navy-deep); color: var(--ice); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.03em; text-wrap: balance; }
+  p { text-wrap: pretty; }
+  ::selection { background: var(--brand-green); color: var(--navy); }
 }
 
-@utility bg-hero { background: var(--gradient-hero); }
-@utility bg-hero-veil { background: var(--gradient-veil); }
+@utility bg-hero { background: var(--navy-deep); }
+@utility bg-hero-veil { background: linear-gradient(90deg, var(--navy-deep) 30%, color-mix(in oklab, var(--navy-deep) 40%, transparent) 70%, transparent); }
 
-/* Botão de contato WhatsApp — texto navy garante contraste AA sobre o verde */
+/* Destaque em serifa itálica dentro de títulos */
+@utility em-serif { font-family: var(--font-serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+
+/* Rótulo técnico: mono, caixa alta, espaçado — usado como "etiqueta de amostra" */
+@utility label-mono { font-family: var(--font-mono); font-size: 0.6875rem; line-height: 1.2; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* Cabeçalho de seção numerado: "03 ── O método PROLAV" */
+.section-index { display: flex; align-items: center; gap: 14px; }
+.section-index::after { content: ""; flex: 1; height: 1px; background: currentColor; opacity: .25; }
+
+/* Grão sutil para tirar o aspecto "digital liso" das superfícies */
+.grain { position: relative; }
+.grain::before { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: .06; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* Moldura de "amostra": vídeo real com cantos de registro e legenda mono */
+.specimen { position: relative; overflow: hidden; border-radius: 2px; background: var(--navy); }
+.specimen-corners { position: absolute; inset: 10px; pointer-events: none; z-index: 2;
+  background:
+    linear-gradient(var(--ice),var(--ice)) top left/14px 1px, linear-gradient(var(--ice),var(--ice)) top left/1px 14px,
+    linear-gradient(var(--ice),var(--ice)) top right/14px 1px, linear-gradient(var(--ice),var(--ice)) top right/1px 14px,
+    linear-gradient(var(--ice),var(--ice)) bottom left/14px 1px, linear-gradient(var(--ice),var(--ice)) bottom left/1px 14px,
+    linear-gradient(var(--ice),var(--ice)) bottom right/14px 1px, linear-gradient(var(--ice),var(--ice)) bottom right/1px 14px;
+  background-repeat: no-repeat; opacity: .8; }
+.specimen-caption { display: flex; justify-content: space-between; gap: 12px; padding-top: 10px; }
+
+/* Botão de contato WhatsApp — retangular, sólido, sem brilho. Texto navy = AA sobre o verde. */
 @utility btn-whatsapp {
-  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-  border-radius: 0.5rem; font-weight: 700;
-  background: var(--whatsapp); color: var(--navy);
-  transition: transform .2s, filter .2s;
-  &:hover { filter: brightness(1.07); transform: translateY(-1px); }
-  &:focus-visible { outline: 3px solid var(--cyan-soft); outline-offset: 2px; }
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.625rem;
+  border-radius: 3px; font-weight: 600; letter-spacing: -0.005em;
+  background: var(--whatsapp); color: var(--navy-deep);
+  transition: background-color .2s, transform .2s;
+  &:hover { background: color-mix(in oklab, var(--whatsapp) 88%, white); }
+  &:active { transform: translateY(1px); }
+  &:focus-visible { outline: 2px solid var(--ice); outline-offset: 3px; }
 }
+
+/* Link com seta que desliza — substitui botões "ghost" genéricos */
+.link-arrow { display: inline-flex; align-items: center; gap: .5rem; font-weight: 600; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+.link-arrow svg { transition: transform .2s; }
+.link-arrow:hover svg { transform: translateX(4px); }
 
 @keyframes wa-pulse { 0%,100% { box-shadow: var(--shadow-wa), 0 0 0 0 color-mix(in oklab, var(--whatsapp) 50%, transparent); } 50% { box-shadow: var(--shadow-wa), 0 0 0 12px transparent; } }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
@@ -220,28 +271,31 @@
   --proof-glow: 0 0 32px -14px color-mix(in oklab, var(--brand-green) 55%, transparent);
   --xray-veil: linear-gradient(90deg, var(--navy) 3%, color-mix(in oklab, var(--navy) 88%, transparent) 35%, color-mix(in oklab, var(--navy) 12%, transparent) 100%);
 }
-.section-kicker { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0; color: var(--cyan-soft); }
+.section-kicker { font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in oklab, var(--ice) 60%, transparent); }
 .xray-scroll { height: 300vh; }
 .xray-pin { height: 100svh; position: sticky; top: 0; isolation: isolate; overflow: hidden; }
 .xray-veil { background: var(--xray-veil); pointer-events: none; }
 .xray-fabric { background-color: var(--fabric); background-image: repeating-linear-gradient(0deg, transparent 0 2px, color-mix(in oklab, var(--fiber) 35%, transparent) 2px 3px), repeating-linear-gradient(90deg, transparent 0 2px, color-mix(in oklab, var(--fiber) 35%, transparent) 2px 3px); }
 .xray-inside { background: var(--slate-deep); }
-.xray-label { display: block; white-space: nowrap; padding: 6px 10px; border: 1px solid color-mix(in oklab, var(--brand-green) 50%, transparent); border-radius: 6px; background: var(--glass); color: var(--ice); font-family: var(--font-sans); font-size: 12px; }
+.xray-label { display: block; white-space: nowrap; padding: 4px 0 4px 10px; border-left: 1px solid var(--brand-green); color: var(--ice); font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
 .xray-static-labels { position: absolute; right: 5%; top: 30%; display: flex; flex-direction: column; gap: 32px; }
-.xray-proof { position: relative; width: min(26vw, 330px); aspect-ratio: 9/16; overflow: hidden; border: 1px solid var(--brand-green); border-radius: 8px; box-shadow: var(--proof-glow); }
-.proof-caption { position: absolute; inset: auto 0 0; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 4px; color: var(--cyan-soft); background: var(--navy); font-size: 10px; }
+.xray-proof { position: relative; width: min(26vw, 330px); aspect-ratio: 9/16; overflow: hidden; border-radius: 2px; }
+.proof-caption { position: absolute; inset: auto 0 0; display: flex; align-items: center; gap: 6px; padding: 14px 14px; color: var(--ice); background: linear-gradient(transparent, color-mix(in oklab, var(--navy-deep) 85%, transparent)); font-family: var(--font-mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
 .xray-progress { position: absolute; right: 24px; top: 40%; display: flex; flex-direction: column; gap: 32px; font-size: 10px; }
 .xray-progress-track { position: absolute; width: 1px; top: 8px; bottom: 8px; left: 3px; background: color-mix(in oklab, var(--ice) 20%, transparent); }
 .xray-marker { position: relative; display: flex; gap: 10px; align-items: center; transition: color .3s; }
 .xray-marker > span:first-child { display: block; width: 7px; height: 7px; border-radius: 50%; }
 .xray-mobile { min-height: 85svh; display: flex; align-items: center; }
 .persona-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; perspective: 1200px; }
-.persona-card { display: flex; flex-direction: column; min-width: 0; border: 1px solid color-mix(in oklab, var(--ice) 12%, transparent); border-radius: 8px; overflow: hidden; background: var(--slate-deep); transition: transform .2s, border-color .2s; }
-.persona-card:hover { transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); border-color: color-mix(in oklab, var(--brand-green) 50%, transparent); }
-.persona-number { position: absolute; left: 12px; top: 12px; background: var(--navy); color: var(--ice); font-size: 11px; border-radius: 6px; padding: 4px 7px; }
-.quiz-glass { background: var(--glass); backdrop-filter: blur(16px); }
+.persona-card { display: flex; flex-direction: column; min-width: 0; border-top: 1px solid var(--rule-dark); padding-top: 16px; background: transparent; transition: transform .3s cubic-bezier(.22,1,.36,1); }
+.persona-card > div:first-child { border-radius: 2px; }
+.persona-card:hover { transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); }
+.persona-card:hover video { filter: saturate(1.08); }
+.persona-number { position: absolute; left: 12px; top: 12px; color: var(--ice); font-size: 11px; letter-spacing: .08em; }
+.persona-card .p-5 { padding: 18px 0 0; }
+.quiz-glass { background: var(--navy); border: 1px solid var(--rule-dark); border-radius: 2px; }
 .quiz-answers { min-height: 260px; display: flex; flex-direction: column; gap: 10px; }
-.quiz-option { justify-content: flex-start; padding: 12px 16px; height: auto; min-height: 44px; white-space: normal; text-align: left; border: 1px solid color-mix(in oklab, var(--ice) 15%, transparent); background: color-mix(in oklab, var(--navy) 50%, transparent); color: var(--ice); }
+.quiz-option { justify-content: flex-start; padding: 12px 16px; height: auto; min-height: 48px; white-space: normal; text-align: left; border: 1px solid var(--rule-dark); border-radius: 2px; background: transparent; color: var(--ice); }
 .quiz-option:hover, .quiz-option-selected { background: color-mix(in oklab, var(--brand-green) 10%, var(--navy)); color: var(--ice); border-color: var(--brand-green); }
 .quiz-check { width: 18px; height: 18px; flex-shrink: 0; display: grid; place-items: center; border: 1px solid color-mix(in oklab, var(--ice) 35%, transparent); border-radius: 4px; color: var(--cyan-soft); }
 .quiz-radio { border-radius: 50%; }

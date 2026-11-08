@@ -9,7 +9,7 @@ export function WhatsAppFloat() {
     <button
       onClick={() => openWhatsApp("float")}
       aria-label="Falar com a PROLAV no WhatsApp"
-      className="btn-whatsapp fixed bottom-5 right-5 z-50 h-14 w-14 !rounded-full shadow-[var(--shadow-wa)] motion-safe:animate-[wa-pulse_2.4s_ease-in-out_infinite]"
+      className="btn-whatsapp fixed bottom-5 right-5 z-50 h-14 w-14 !rounded-full shadow-[var(--shadow-wa)]"
     >
       <WhatsAppIcon className="h-7 w-7" />
     </button>
