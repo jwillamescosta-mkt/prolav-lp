@@ -30,7 +30,8 @@ use the editor.
 <!-- LOVABLE:END -->
 
 ## Project rules
-- Store uploaded media as CDN asset pointers; keep native generated source assets in the repository to avoid large binary commits.
+- Serve landing videos from `public/media` (same origin, range requests): H.264 Main 3.1, 30 fps, 1 keyframe/s (scrub clips every 6 frames), maxrate ~1.1 Mbps, faststart, no audio, with a `.webp` poster. Keep each clip under ~1.5 MB.
+- All page videos go through `src/lib/videoCoordinator.ts` (preload one screen ahead, play only the most visible within the device budget, respect manual pause). Pause Three.js loops off-screen.
 - Keep landing copy in `src/data/content.ts` and diagnosis rules in a pure tested module so business changes stay independent of rendering.
 - Lazy-load browser-only Three.js scenes after intersection; retain CSS and poster fallbacks to preserve SSR and reduced-motion accessibility.
 - Reuse the WhatsApp tracking helper for all contact messages so persona and quiz submissions preserve attribution.

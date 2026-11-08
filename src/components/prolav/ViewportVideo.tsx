@@ -1,40 +1,33 @@
 import { useEffect, useRef, useState } from "react";
 import { Pause, Play } from "lucide-react";
+import { registerVideo, type VideoHandle } from "@/lib/videoCoordinator";
 
 type Props = { src: string; poster: string; label: string; className?: string; active?: boolean };
 
-// Sem download antecipado: a fonte só é anexada quando o vídeo entra na tela.
-// WCAG 2.2.2: todo vídeo que toca sozinho em loop tem botão de pausar (44×44px).
-// A pausa manual é respeitada mesmo quando o vídeo sai e volta para a tela.
+// Vídeo em loop gerenciado pelo coordenador da página:
+// - a fonte é anexada quando o vídeo está a até 1 tela de distância (já chega com buffer);
+// - só toca se estiver entre os mais visíveis (limite por aparelho/conexão);
+// - WCAG 2.2.2: botão de pausar/reproduzir de 44×44px; a pausa manual é respeitada.
 export function ViewportVideo({ src, poster, label, className = "", active = true }: Props) {
   const ref = useRef<HTMLVideoElement>(null);
+  const handle = useRef<VideoHandle | null>(null);
   const [loaded, setLoaded] = useState(false);
-  const [userPaused, setUserPaused] = useState(false);
   const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
-    const video = ref.current;
-    if (!video) return;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let visible = false;
-    const sync = () => {
-      if (!visible || !active || reduced.matches || document.hidden || userPaused) { video.pause(); return; }
-      setLoaded(true);
-      // load/play têm efeito apenas quando a fonte estiver anexada.
-      if (video.getAttribute("src")) void video.play().catch(() => {});
-    };
-    const observer = new IntersectionObserver(([entry]) => { visible = Boolean(entry?.isIntersecting); sync(); }, { threshold: 0.25 });
-    observer.observe(video);
-    reduced.addEventListener("change", sync);
-    document.addEventListener("visibilitychange", sync);
-    return () => { observer.disconnect(); video.pause(); reduced.removeEventListener("change", sync); document.removeEventListener("visibilitychange", sync); };
-  }, [active, loaded, userPaused]);
+    const el = ref.current;
+    if (!el) return;
+    handle.current = registerVideo(el, { onNear: () => setLoaded(true) });
+    return () => { handle.current?.unregister(); handle.current = null; };
+  }, []);
+
+  // Fonte anexada → coordenador pode decidir tocar
+  useEffect(() => { if (loaded) handle.current?.refresh(); }, [loaded]);
+  useEffect(() => { handle.current?.setEnabled(active); }, [active]);
 
   const toggle = () => {
-    const video = ref.current;
-    if (!video) return;
-    if (video.paused) { setUserPaused(false); setLoaded(true); void video.play().catch(() => {}); }
-    else { setUserPaused(true); video.pause(); }
+    setLoaded(true);
+    handle.current?.setUserPaused(Boolean(ref.current && !ref.current.paused));
   };
 
   return (
@@ -46,7 +39,7 @@ export function ViewportVideo({ src, poster, label, className = "", active = tru
         muted
         loop
         playsInline
-        preload="none"
+        preload={loaded ? "auto" : "none"}
         aria-label={label}
         className={className}
         onPlay={() => setPlaying(true)}

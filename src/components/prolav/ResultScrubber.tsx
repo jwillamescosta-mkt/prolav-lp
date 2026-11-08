@@ -5,48 +5,56 @@ import { useEffect, useRef, useState } from "react";
 import { Pause, Play } from "lucide-react";
 import { RESULTS, type ResultCase } from "@/data/content";
 import { chapterAt, stepToTime, timeToStep, valueText } from "@/lib/chapters";
+import { registerVideo, type VideoHandle } from "@/lib/videoCoordinator";
 
 export function ResultScrubber({ item, index }: { item: ResultCase; index: number }) {
   const video = useRef<HTMLVideoElement>(null);
+  const range = useRef<HTMLInputElement>(null);
+  const track = useRef<HTMLDivElement>(null);
+  const handle = useRef<VideoHandle | null>(null);
   const [loaded, setLoaded] = useState(false);
   const [time, setTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const autoplayed = useRef(false);
   const active = chapterAt(time, item.chapters);
   const rangeId = `scrub-${item.key}`;
 
-  // Carrega só quando entra na tela; toca uma vez sozinho (sem loop) e pausa ao sair.
+  // Coordenador: pré-carrega perto da tela e toca uma vez sozinho (once), dentro do orçamento.
   useEffect(() => {
-    const v = video.current;
-    if (!v) return;
-    const io = new IntersectionObserver(([e]) => {
-      if (e?.isIntersecting) {
-        setLoaded(true);
-        if (!autoplayed.current && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-          autoplayed.current = true;
-          window.setTimeout(() => void v.play().catch(() => {}), 150);
-        }
-      } else v.pause();
-    }, { threshold: 0.5 });
-    io.observe(v);
-    return () => io.disconnect();
+    const el = video.current;
+    if (!el) return;
+    handle.current = registerVideo(el, { onNear: () => setLoaded(true), once: true });
+    return () => { handle.current?.unregister(); handle.current = null; };
   }, []);
+  useEffect(() => { if (loaded) handle.current?.refresh(); }, [loaded]);
 
-  // Atualização suave do controle enquanto toca
+  // Enquanto toca: barra atualizada direto no DOM a cada quadro (sem re-render);
+  // o estado do React só muda ao trocar de capítulo ou 4×/s (texto acessível).
   useEffect(() => {
     if (!playing) return;
     let raf = 0;
-    const tick = () => { if (video.current) setTime(video.current.currentTime); raf = requestAnimationFrame(tick); };
+    let last = 0;
+    let lastChapter = -1;
+    const tick = (now: number) => {
+      const v = video.current;
+      if (v && v.duration) {
+        const t = v.currentTime;
+        if (range.current) range.current.value = String(timeToStep(t, v.duration));
+        track.current?.style.setProperty("--pct", `${(t / v.duration) * 100}%`);
+        const ch = chapterAt(t, item.chapters);
+        if (ch !== lastChapter || now - last > 250) { lastChapter = ch; last = now; setTime(t); }
+      }
+      raf = requestAnimationFrame(tick);
+    };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [playing]);
+  }, [playing, item.chapters]);
 
   const seek = (t: number) => {
     const v = video.current;
     if (!v) return;
     setLoaded(true);
-    v.pause();
+    handle.current?.setUserPaused(true); // arrastar = a pessoa assumiu o controle
     v.currentTime = t;
     setTime(t);
   };
@@ -57,8 +65,8 @@ export function ResultScrubber({ item, index }: { item: ResultCase; index: numbe
     setLoaded(true);
     if (v.paused) {
       if (v.ended || v.currentTime >= (duration || v.duration) - 0.05) v.currentTime = 0;
-      void v.play().catch(() => {});
-    } else v.pause();
+      handle.current?.setUserPaused(false);
+    } else handle.current?.setUserPaused(true);
   };
 
   const pct = duration ? (time / duration) * 100 : 0;
@@ -96,9 +104,10 @@ export function ResultScrubber({ item, index }: { item: ResultCase; index: numbe
       </figure>
 
       {/* Linha do tempo arrastável */}
-      <div className="scrub mt-4" style={{ ["--pct" as string]: `${pct}%` }}>
+      <div ref={track} className="scrub mt-4" style={{ ["--pct" as string]: `${pct}%` }}>
         <label htmlFor={rangeId} className="sr-only">{`${RESULTS.scrubLabel}: ${item.title}`}</label>
         <input
+          ref={range}
           id={rangeId}
           type="range"
           min={0}
@@ -107,7 +116,7 @@ export function ResultScrubber({ item, index }: { item: ResultCase; index: numbe
           value={timeToStep(time, duration)}
           aria-valuetext={valueText(time, duration, item.chapters)}
           onChange={(e) => seek(stepToTime(Number(e.currentTarget.value), duration || video.current?.duration || 0))}
-          onPointerDown={() => { setLoaded(true); video.current?.pause(); }}
+          onPointerDown={() => { setLoaded(true); handle.current?.setUserPaused(true); }}
         />
       </div>
       <div className="grid grid-cols-3" role="group" aria-label={`Capítulos: ${item.title}`}>

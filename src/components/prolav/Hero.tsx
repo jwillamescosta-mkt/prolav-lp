@@ -1,6 +1,6 @@
 // HERO — composição editorial em duas colunas: texto à esquerda, registro real à direita.
 // O texto renderiza no servidor (LCP); a cena 3D entra depois, só no navegador e bem discreta.
-import { lazy, Suspense, useEffect, useState, type ReactNode } from "react";
+import { lazy, Suspense, useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { HERO, HERO_MEDIA } from "@/data/content";
@@ -25,6 +25,17 @@ function Title() {
 export function Hero({ media }: { media?: ReactNode }) {
   const reduce = useReducedMotion();
   const [scene, setScene] = useState<{ count: number; lite: boolean } | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [onScreen, setOnScreen] = useState(true);
+
+  // Pausa a cena 3D quando o hero sai da tela
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setOnScreen(Boolean(e?.isIntersecting)));
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   // Decide se e como carregar o 3D (após hidratação, sem bloquear o LCP)
   useEffect(() => {
@@ -38,14 +49,14 @@ export function Hero({ media }: { media?: ReactNode }) {
     reduce ? {} : { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8, delay: d, ease: [0.22, 1, 0.36, 1] as const } };
 
   return (
-    <section id="topo" className="grain relative isolate overflow-hidden bg-hero">
+    <section ref={sectionRef} id="topo" className="grain relative isolate overflow-hidden bg-hero">
       {/* Cena 3D atrás de tudo, com opacidade baixa — textura, não protagonista */}
       <div className="absolute inset-0 -z-10 opacity-50" aria-hidden="true">
         {media ??
           (scene && (
             <Suspense fallback={null}>
               <div className="h-full w-full motion-safe:animate-[fade-in_1.6s_ease-out]">
-                <HeroScene {...scene} />
+                <HeroScene {...scene} active={onScreen} />
               </div>
             </Suspense>
           ))}

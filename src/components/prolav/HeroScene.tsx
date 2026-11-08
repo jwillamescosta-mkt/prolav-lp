@@ -4,7 +4,7 @@ import { useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
-type Props = { count: number; lite: boolean };
+type Props = { count: number; lite: boolean; active?: boolean };
 
 function Bubbles({ count, color, opacity, seed }: { count: number; color: string; opacity: number; seed: number }) {
   const ref = useRef<THREE.InstancedMesh>(null);
@@ -63,9 +63,11 @@ function Bubbles({ count, color, opacity, seed }: { count: number; color: string
   );
 }
 
-export default function HeroScene({ count, lite }: Props) {
+export default function HeroScene({ count, lite, active = true }: Props) {
   return (
     <Canvas
+      // Fora da tela o render loop para (libera GPU para os vídeos)
+      frameloop={active ? "always" : "never"}
       dpr={lite ? 1 : [1, 1.75]}
       camera={{ position: [0, 0, 6], fov: 55 }}
       gl={{ antialias: !lite, alpha: true, powerPreference: "low-power" }}

@@ -16,3 +16,9 @@
 - [x] Linha do tempo arrastável antes → durante → depois em vídeos reais (sem legendas embutidas), mobile first.
 - [x] Lógica de capítulos em módulo puro testado (src/lib/chapters.ts).
 - [x] WCAG: botão de pausar em todo vídeo automático (2.2.2), atalho "pular para o conteúdo" (2.4.1), foco visível (2.4.7), contraste AA nos textos de apoio, alternativa por botão ao clique no canvas 3D (2.1.1), alvos de toque ≥ 44px.
+
+# Correção — vídeos travando
+- [x] Coordenador único de vídeos: pré-carrega 1 tela antes, toca só os mais visíveis (1 no celular, 2–3 no desktop), zero em economia de dados.
+- [x] Cena 3D do hero para de renderizar fora da tela; vídeo do método não é recriado a cada passo.
+- [x] Recodificação H.264 Main 3.1, 1 quadro-chave/s, taxa limitada; vídeos da etapa 2 servidos de /public/media.
+- [x] Linha do tempo sem re-render a cada quadro; grão sem mix-blend-mode.

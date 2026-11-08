@@ -1,11 +1,12 @@
 // Passo a passo do método. Desktop: lista à esquerda e vídeo real fixo à direita,
 // que troca conforme o passo ativo na rolagem. Celular: cada passo com o próprio vídeo.
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { METHOD } from "@/data/content";
 import { ViewportVideo } from "./ViewportVideo";
 
-const media = (key: string) => ({ src: `/media/tec-${key}.mp4`, poster: `/media/tec-${key}.webp` });
+const UNIQUE_MEDIA = [...new Set(METHOD.steps.map((s) => s.media))];
+const media = (key: string) =>({ src: `/media/tec-${key}.mp4`, poster: `/media/tec-${key}.webp` });
 
 export function MethodSteps() {
   const [active, setActive] = useState(0);
@@ -50,18 +51,24 @@ export function MethodSteps() {
       <div className="hidden lg:block">
         <figure className="sticky top-24">
           <div className="specimen aspect-[9/14] w-full">
-            <AnimatePresence mode="popLayout" initial={false}>
-              <motion.div
-                key={current.media}
-                className="absolute inset-0"
-                initial={reduced ? false : { opacity: 0, scale: 1.04 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: reduced ? 1 : 0 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <ViewportVideo {...media(current.media)} label={current.title} className="h-full w-full object-cover" />
-              </motion.div>
-            </AnimatePresence>
+            {/* Vídeos únicos ficam montados (sem baixar/decodificar de novo a cada passo);
+                só o do passo ativo toca, os outros esmaecem e pausam. */}
+            {UNIQUE_MEDIA.map((m) => {
+              const on = current.media === m;
+              return (
+                <motion.div
+                  key={m}
+                  className="absolute inset-0"
+                  aria-hidden={!on}
+                  initial={false}
+                  animate={{ opacity: on ? 1 : 0, scale: on || reduced ? 1 : 1.03 }}
+                  transition={{ duration: reduced ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ pointerEvents: on ? "auto" : "none" }}
+                >
+                  <ViewportVideo {...media(m)} label={current.title} active={on} className="h-full w-full object-cover" />
+                </motion.div>
+              );
+            })}
             <div className="specimen-corners" />
           </div>
           <figcaption className="specimen-caption label-mono text-ink/70">
