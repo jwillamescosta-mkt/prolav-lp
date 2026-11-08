@@ -210,3 +210,62 @@
 
 @keyframes wa-pulse { 0%,100% { box-shadow: var(--shadow-wa), 0 0 0 0 color-mix(in oklab, var(--whatsapp) 50%, transparent); } 50% { box-shadow: var(--shadow-wa), 0 0 0 12px transparent; } }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* ETAPA 2 — cores da matéria, vidro e evidência como tokens semânticos. */
+:root {
+  --fabric: oklch(0.84 0.03 82);
+  --fiber: oklch(0.65 0.025 80);
+  --dust: oklch(0.22 0.015 75);
+  --glass: color-mix(in oklab, var(--slate-deep) 78%, transparent);
+  --proof-glow: 0 0 32px -14px color-mix(in oklab, var(--brand-green) 55%, transparent);
+  --xray-veil: linear-gradient(90deg, var(--navy) 3%, color-mix(in oklab, var(--navy) 88%, transparent) 35%, color-mix(in oklab, var(--navy) 12%, transparent) 100%);
+}
+.section-kicker { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0; color: var(--cyan-soft); }
+.xray-scroll { height: 300vh; }
+.xray-pin { height: 100svh; position: sticky; top: 0; isolation: isolate; overflow: hidden; }
+.xray-veil { background: var(--xray-veil); pointer-events: none; }
+.xray-fabric { background-color: var(--fabric); background-image: repeating-linear-gradient(0deg, transparent 0 2px, color-mix(in oklab, var(--fiber) 35%, transparent) 2px 3px), repeating-linear-gradient(90deg, transparent 0 2px, color-mix(in oklab, var(--fiber) 35%, transparent) 2px 3px); }
+.xray-inside { background: var(--slate-deep); }
+.xray-label { display: block; white-space: nowrap; padding: 6px 10px; border: 1px solid color-mix(in oklab, var(--brand-green) 50%, transparent); border-radius: 6px; background: var(--glass); color: var(--ice); font-family: var(--font-sans); font-size: 12px; }
+.xray-static-labels { position: absolute; right: 5%; top: 30%; display: flex; flex-direction: column; gap: 32px; }
+.xray-proof { position: relative; width: min(26vw, 330px); aspect-ratio: 9/16; overflow: hidden; border: 1px solid var(--brand-green); border-radius: 8px; box-shadow: var(--proof-glow); }
+.proof-caption { position: absolute; inset: auto 0 0; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 4px; color: var(--cyan-soft); background: var(--navy); font-size: 10px; }
+.xray-progress { position: absolute; right: 24px; top: 40%; display: flex; flex-direction: column; gap: 32px; font-size: 10px; }
+.xray-progress-track { position: absolute; width: 1px; top: 8px; bottom: 8px; left: 3px; background: color-mix(in oklab, var(--ice) 20%, transparent); }
+.xray-marker { position: relative; display: flex; gap: 10px; align-items: center; transition: color .3s; }
+.xray-marker > span:first-child { display: block; width: 7px; height: 7px; border-radius: 50%; }
+.xray-mobile { min-height: 85svh; display: flex; align-items: center; }
+.persona-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; perspective: 1200px; }
+.persona-card { display: flex; flex-direction: column; min-width: 0; border: 1px solid color-mix(in oklab, var(--ice) 12%, transparent); border-radius: 8px; overflow: hidden; background: var(--slate-deep); transition: transform .2s, border-color .2s; }
+.persona-card:hover { transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); border-color: color-mix(in oklab, var(--brand-green) 50%, transparent); }
+.persona-number { position: absolute; left: 12px; top: 12px; background: var(--navy); color: var(--ice); font-size: 11px; border-radius: 6px; padding: 4px 7px; }
+.quiz-glass { background: var(--glass); backdrop-filter: blur(16px); }
+.quiz-answers { min-height: 260px; display: flex; flex-direction: column; gap: 10px; }
+.quiz-option { justify-content: flex-start; padding: 12px 16px; height: auto; min-height: 44px; white-space: normal; text-align: left; border: 1px solid color-mix(in oklab, var(--ice) 15%, transparent); background: color-mix(in oklab, var(--navy) 50%, transparent); color: var(--ice); }
+.quiz-option:hover, .quiz-option-selected { background: color-mix(in oklab, var(--brand-green) 10%, var(--navy)); color: var(--ice); border-color: var(--brand-green); }
+.quiz-check { width: 18px; height: 18px; flex-shrink: 0; display: grid; place-items: center; border: 1px solid color-mix(in oklab, var(--ice) 35%, transparent); border-radius: 4px; color: var(--cyan-soft); }
+.quiz-radio { border-radius: 50%; }
+.quiz-option-selected .quiz-check { border-color: var(--brand-green); }
+.quiz-input { width: 100%; height: 48px; border: 1px solid color-mix(in oklab, var(--ice) 25%, transparent); background: var(--navy); border-radius: 8px; padding: 0 14px; color: var(--ice); outline-color: var(--brand-green); }
+.priority-meter { width: 140px; height: 140px; position: relative; margin-inline: auto; color: var(--cyan-soft); }
+.priority-meter > div { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.priority-meter svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.priority-meter circle { fill: none; stroke-width: 5px; }
+.meter-track { stroke: color-mix(in oklab, var(--ice) 12%, transparent); }
+.meter-fill { stroke: currentColor; stroke-linecap: round; }
+.priority-média { color: var(--sky); }
+.priority-baixa { color: var(--ice); }
+@media (max-width: 767px) {
+  .xray-proof { width: min(72vw, 280px); }
+  .persona-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 16px; padding-bottom: 16px; margin-right: -20px; padding-right: 20px; }
+  .persona-card { flex: 0 0 min(78vw, 310px); scroll-snap-align: start; }
+  .quiz-answers { min-height: 300px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .persona-card:hover { transform: none; }
+  .xray-pin { position: relative; }
+  .xray-scroll { height: auto; }
+  .xray-scroll { display: none; }
+  .xray-scroll + div { display: block; }
+  .xray-mobile, .xray-proof, .xray-veil { transition: none; }
+}

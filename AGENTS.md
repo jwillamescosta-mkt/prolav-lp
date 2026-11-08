@@ -28,3 +28,9 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- Store uploaded media as CDN asset pointers; keep native generated source assets in the repository to avoid large binary commits.
+- Keep landing copy in `src/data/content.ts` and diagnosis rules in a pure tested module so business changes stay independent of rendering.
+- Lazy-load browser-only Three.js scenes after intersection; retain CSS and poster fallbacks to preserve SSR and reduced-motion accessibility.
+- Reuse the WhatsApp tracking helper for all contact messages so persona and quiz submissions preserve attribution.

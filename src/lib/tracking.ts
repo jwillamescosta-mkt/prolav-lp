@@ -32,18 +32,18 @@ function getUtms(): Record<string, string> {
 }
 
 /** Monta o link do WhatsApp com UTMs anexadas ao texto. */
-export function buildWhatsAppUrl() {
+export function buildWhatsAppUrl(message = WHATSAPP_MESSAGE) {
   const utms = getUtms();
   const tail = Object.entries(utms).map(([k, v]) => `${k}=${v}`).join(" | ");
-  const text = tail ? `${WHATSAPP_MESSAGE}\n\n[ref: ${tail}]` : WHATSAPP_MESSAGE;
+  const text = tail ? `${message}\n\n[ref: ${tail}]` : message;
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 }
 
 /** Dispara eventos e abre o WhatsApp. */
-export function openWhatsApp(origin: string) {
+export function openWhatsApp(origin: string, message = WHATSAPP_MESSAGE) {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ event: "Contact", origin });
   window.dataLayer.push({ event: "Lead", origin });
   if (typeof window.fbq === "function") window.fbq("track", "Lead");
-  window.open(buildWhatsAppUrl(), "_blank", "noopener");
+  window.open(buildWhatsAppUrl(message), "_blank", "noopener");
 }

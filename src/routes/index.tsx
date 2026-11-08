@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/prolav/Header";
 import { Hero } from "@/components/prolav/Hero";
 import { StatsBar } from "@/components/prolav/StatsBar";
+import { ProblemSection } from "@/components/prolav/ProblemSection";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -24,8 +25,9 @@ function Index() {
       <main>
         <Hero />
         <StatsBar />
-        {/* ETAPA 2 – seção "problema" (placeholder) */}
-        <section id="problema" aria-label="Etapa 2" className="min-h-[60vh] bg-navy" />
+        <ProblemSection />
+        {/* ETAPA 3 — espaço reservado, sem conteúdo antecipado. */}
+        <section id="tecnologia" aria-label="Etapa 3" className="bg-navy" />
       </main>
     </>
   );
