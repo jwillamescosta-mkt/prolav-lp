@@ -8,7 +8,8 @@ declare global {
   }
 }
 
-const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"] as const;
+// gclid/fbclid: identificam o clique do anúncio mesmo quando a campanha não tem UTM
+const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "gclid", "fbclid"] as const;
 const STORAGE_KEY = "prolav_utms";
 
 /** Lê UTMs da URL e salva no sessionStorage (chamar em useEffect). */
@@ -45,5 +46,9 @@ export function openWhatsApp(origin: string, message = WHATSAPP_MESSAGE) {
   window.dataLayer.push({ event: "Contact", origin });
   window.dataLayer.push({ event: "Lead", origin });
   if (typeof window.fbq === "function") window.fbq("track", "Lead");
-  window.open(buildWhatsAppUrl(message), "_blank", "noopener");
+  // Navegadores embutidos (Instagram/Facebook) costumam bloquear nova aba: nesse caso abre na mesma.
+  const url = buildWhatsAppUrl(message);
+  const win = window.open(url, "_blank");
+  if (win) win.opener = null;
+  else window.location.href = url;
 }

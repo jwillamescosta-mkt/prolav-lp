@@ -1,0 +1,25 @@
+// ETAPA 5 — Dúvidas (objeções do playbook), área atendida e CTA final.
+export const CLOSING = {
+  index: "05",
+  kicker: "Antes de chamar",
+  title: "As dúvidas que todo mundo tem.",
+  faq: [
+    { q: "A blindagem é perigosa? Pode pegar fogo?", a: "Não. A PROLAV usa impermeabilizante à base de água, não inflamável e certificado. É seguro para aplicar dentro do apartamento, perto de crianças e pets, e não altera a cor nem o toque do tecido." },
+    { q: "Pode estragar ou desbotar meu tecido?", a: "Cada tecido é avaliado e testado em uma área escondida antes do tratamento. O produto e a técnica são escolhidos para a sua fibra — linho, suede, veludo ou couro." },
+    { q: "Meu sofá vai ficar encharcado?", a: "Não. A extratora injeta e suga ao mesmo tempo, então a água sai junto com a sujeira. O tempo de secagem varia com o tecido e o clima do dia, e a equipe informa a previsão no orçamento." },
+    { q: "Os produtos são seguros para crianças, alérgicos e pets?", a: "Sim. Os produtos são hipoalergênicos, biodegradáveis e certificados." },
+    { q: "Por que custa mais do que uma lavagem comum?", a: "A limpeza informal costuma usar sabão e água em excesso, que empurram a sujeira para a espuma e favorecem o mofo. Aqui você paga por extração profissional, produto certificado e cuidado com um estofado que vale milhares de reais." },
+    { q: "Como funciona o orçamento?", a: "Você manda uma foto do estofado pelo WhatsApp, conta o que quer tratar e recebe o valor. É grátis e sem compromisso." },
+    { q: "Atendem empresas e emitem nota fiscal?", a: "Sim. Clínicas, escritórios, pousadas e hotéis, com nota fiscal e horário combinado para não parar o seu atendimento." },
+  ],
+  areaTitle: "Atendimento em domicílio em Maceió e região metropolitana",
+  areas: ["Ponta Verde", "Pajuçara", "Jatiúca", "Mangabeiras", "Cruz das Almas", "Jacarecica", "Guaxuma", "Farol", "Gruta de Lourdes", "Serraria", "Aldebaran", "San Nicolas"],
+  finalTitle: "Seu sofá limpo por dentro.",
+  finalEmphasis: "Comece com uma foto.",
+  finalText: "Mande uma foto do estofado no WhatsApp e receba o orçamento. A agenda é montada por região, então quanto antes você chamar, mais perto fica a sua data.",
+  cta: "Enviar foto e pedir orçamento",
+  ctaMessage: "Olá, PROLAV! Quero um orçamento de higienização. Vou enviar uma foto do meu estofado.",
+  microproof: "Grátis e sem compromisso · Resposta em minutos · Técnicos uniformizados",
+  instagram: { handle: "@prolav_higienizacao", url: "https://www.instagram.com/prolav_higienizacao/" },
+  footer: "PROLAV Higienização & Estética · Maceió/AL · Desde 2021",
+};

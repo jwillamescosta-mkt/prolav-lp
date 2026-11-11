@@ -22,3 +22,9 @@
 - [x] Cena 3D do hero para de renderizar fora da tela; vídeo do método não é recriado a cada passo.
 - [x] Recodificação H.264 Main 3.1, 1 quadro-chave/s, taxa limitada; vídeos da etapa 2 servidos de /public/media.
 - [x] Linha do tempo sem re-render a cada quadro; grão sem mix-blend-mode.
+
+# Etapa 5 — otimização de conversão
+- [x] Fechamento: dúvidas (objeções), área atendida, CTA final e rodapé; dados estruturados LocalBusiness + FAQPage.
+- [x] Hero: título e CTA no HTML do servidor (sem animação), vídeo real também no celular, sem three.js no celular.
+- [x] WhatsApp: abre na mesma aba se a nova for bloqueada (navegador do Instagram); captura gclid/fbclid; botão flutuante com rótulo.
+- [ ] Pendências do cliente: número real do WhatsApp, IDs de GTM/Pixel + consentimento LGPD, og:image, depoimentos e garantia.

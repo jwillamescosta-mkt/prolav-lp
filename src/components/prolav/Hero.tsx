@@ -40,8 +40,9 @@ export function Hero({ media }: { media?: ReactNode }) {
   // Decide se e como carregar o 3D (após hidratação, sem bloquear o LCP)
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const mobile = window.matchMedia("(max-width: 768px)").matches;
-    const id = window.setTimeout(() => setScene({ count: mobile ? 30 : 90, lite: mobile }), 400);
+    // No celular não carrega three.js no hero: economiza ~JS/GPU onde o LCP mais importa; o vídeo real faz o papel visual
+    if (window.matchMedia("(max-width: 768px)").matches) return;
+    const id = window.setTimeout(() => setScene({ count: 90, lite: false }), 400);
     return () => window.clearTimeout(id);
   }, []);
 
@@ -68,13 +69,14 @@ export function Hero({ media }: { media?: ReactNode }) {
           <motion.p {...rise(0)} className="label-mono text-ice/70">
             {HERO.badge}
           </motion.p>
-          <motion.div {...rise(0.05)} className="mt-7">
+          {/* Título e CTA sem animação de entrada: aparecem no HTML do servidor (LCP), sem esperar o JavaScript */}
+          <div className="mt-7">
             <Title />
-          </motion.div>
+          </div>
           <motion.p {...rise(0.15)} className="mt-8 max-w-xl text-base leading-relaxed text-ice/75 sm:text-lg">
             {HERO.subtitle}
           </motion.p>
-          <motion.div {...rise(0.25)} className="mt-10 flex flex-col items-start gap-6 sm:flex-row sm:items-center">
+          <div className="mt-10 flex flex-col items-start gap-6 sm:flex-row sm:items-center">
             <button onClick={() => openWhatsApp("hero")} className="btn-whatsapp h-14 px-7 text-base">
               <WhatsAppIcon className="h-5 w-5" />
               {HERO.ctaPrimary}
@@ -83,7 +85,7 @@ export function Hero({ media }: { media?: ReactNode }) {
               {HERO.ctaSecondary.replace(" ↓", "")}
               <ArrowDown className="h-4 w-4" aria-hidden="true" />
             </a>
-          </motion.div>
+          </div>
           <motion.ul {...rise(0.32)} className="mt-10 grid max-w-xl grid-cols-1 gap-y-2 border-t border-ice/15 pt-5 text-sm text-ice/65 sm:grid-cols-3">
             {HERO.microproof.map((m) => (
               <li key={m} className="flex items-center gap-2">
@@ -95,7 +97,7 @@ export function Hero({ media }: { media?: ReactNode }) {
         </div>
 
         {/* Registro real em moldura de "amostra" — prova visual acima da dobra */}
-        <motion.figure {...rise(0.2)} className="relative z-10 mx-auto hidden w-full max-w-[340px] lg:block">
+        <motion.figure {...rise(0.2)} className="relative z-10 mx-auto w-full max-w-[260px] lg:max-w-[340px]">
           <div className="specimen aspect-[9/14]">
             <ViewportVideo src="/media/tec-extracao.mp4" poster="/media/tec-extracao.webp" label="Técnico da PROLAV fazendo extração profunda em sofá" className="h-full w-full object-cover" />
             <div className="specimen-corners" />

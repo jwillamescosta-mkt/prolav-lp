@@ -10,7 +10,7 @@ describe("WhatsApp com diagnóstico e origem", () => {
     expect(url.searchParams.get("text")).toBe("Olá! Meu estofado tem manchas e quero um orçamento.\n\n[ref: utm_source=teste | utm_campaign=sofa]");
   });
   it("dispara Contact e Lead apenas no clique de orçamento", () => {
-    const open = vi.spyOn(window, "open").mockReturnValue(null);
+    const open = vi.spyOn(window, "open").mockReturnValue({} as Window);
     expect(window.dataLayer).toEqual([]);
     openWhatsApp("quiz", "Diagnóstico revisado");
     expect(window.dataLayer).toEqual([{ event: "Contact", origin: "quiz" }, { event: "Lead", origin: "quiz" }]);

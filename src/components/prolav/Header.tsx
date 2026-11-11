@@ -8,6 +8,7 @@ const NAV = [
   { href: "#problema", label: "O problema" },
   { href: "#tecnologia", label: "Método" },
   { href: "#resultados", label: "Resultados" },
+  { href: "#duvidas", label: "Dúvidas" },
 ];
 
 export function Header() {

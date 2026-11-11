@@ -5,6 +5,8 @@ import { StatsBar } from "@/components/prolav/StatsBar";
 import { ProblemSection } from "@/components/prolav/ProblemSection";
 import { MethodSection } from "@/components/prolav/MethodSection";
 import { ResultsSection } from "@/components/prolav/ResultsSection";
+import { ClosingSection } from "@/components/prolav/ClosingSection";
+import { CLOSING } from "@/data/closing";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -15,6 +17,19 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "Seu sofá limpo de verdade, sua família respirando melhor. Orçamento grátis no WhatsApp." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+    ],
+    // Dados estruturados: negócio local + perguntas frequentes (resultado rico no Google)
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            { "@type": "LocalBusiness", name: "PROLAV Higienização & Estética", description: "Higienização e blindagem de estofados em domicílio.", areaServed: "Maceió, AL", address: { "@type": "PostalAddress", addressLocality: "Maceió", addressRegion: "AL", addressCountry: "BR" }, sameAs: [CLOSING.instagram.url] },
+            { "@type": "FAQPage", mainEntity: CLOSING.faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) },
+          ],
+        }),
+      },
     ],
   }),
   component: Index,
@@ -32,6 +47,7 @@ function Index() {
         <ProblemSection />
         <MethodSection />
         <ResultsSection />
+        <ClosingSection />
       </main>
     </>
   );
