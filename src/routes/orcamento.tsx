@@ -7,6 +7,7 @@ import { LpHero } from "@/components/lp/LpHero";
 import { LpResults } from "@/components/lp/LpResults";
 import { LpServices } from "@/components/lp/LpServices";
 import { LpClosing } from "@/components/lp/LpClosing";
+import { InterviewSection } from "@/components/prolav/InterviewSection";
 import { SITE_URL } from "@/data/lp";
 // Fontes do título (LCP): pré-carregadas para o H1 não esperar o CSS descobrir o arquivo.
 // Vite deduplica pelo conteúdo, então é o mesmo arquivo que o @fontsource referencia.
@@ -83,6 +84,8 @@ function Orcamento() {
         <LpHero />
         <LpResults />
         <LpServices />
+        {/* Autoridade de imprensa logo antes das dúvidas e do CTA final */}
+        <InterviewSection />
         <LpClosing />
       </main>
     </>

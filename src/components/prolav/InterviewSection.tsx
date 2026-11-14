@@ -19,7 +19,7 @@ export function InterviewSection() {
   };
 
   return (
-    <section id="entrevista" aria-labelledby="entrevista-title" className="grain bg-paper text-ink">
+    <section id="entrevista" aria-labelledby="entrevista-title" className="grain border-t border-rule bg-paper text-ink">
       <div className="relative mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
         <p className="section-index label-mono text-ink/70"><span>{INTERVIEW.kicker} · {INTERVIEW.source}</span></p>
 
