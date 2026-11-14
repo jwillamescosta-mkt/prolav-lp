@@ -23,3 +23,15 @@ export const CLOSING = {
   instagram: { handle: "@prolav_higienizacao", url: "https://www.instagram.com/prolav_higienizacao/" },
   footer: "PROLAV Higienização & Estética · Maceió/AL · Desde 2021",
 };
+
+// Entrevista dos sócios em canal local — prova de autoridade antes das dúvidas.
+export const INTERVIEW = {
+  youtubeId: "FzjEcMhDpNE",
+  kicker: "Quem está por trás",
+  title: "Handerson e Ruana,",
+  titleEmphasis: "na entrevista.",
+  text: "Os sócios Handerson Lima e Ruana Clemente contaram a um canal local como a PROLAV trabalha — e por que limpar vai muito além da superfície: é cuidar das pessoas que vivem naquele ambiente.",
+  play: "Assistir à entrevista",
+  cta: "Falar com a equipe da PROLAV",
+  ctaMessage: "Olá, PROLAV! Vi a entrevista no site e quero um orçamento.",
+};

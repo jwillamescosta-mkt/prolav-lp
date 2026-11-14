@@ -6,6 +6,7 @@ import { ProblemSection } from "@/components/prolav/ProblemSection";
 import { MethodSection } from "@/components/prolav/MethodSection";
 import { ResultsSection } from "@/components/prolav/ResultsSection";
 import { ClosingSection } from "@/components/prolav/ClosingSection";
+import { InterviewSection } from "@/components/prolav/InterviewSection";
 import { CLOSING } from "@/data/closing";
 
 export const Route = createFileRoute("/")({
@@ -47,6 +48,7 @@ function Index() {
         <ProblemSection />
         <MethodSection />
         <ResultsSection />
+        <InterviewSection />
         <ClosingSection />
       </main>
     </>

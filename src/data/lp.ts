@@ -14,7 +14,7 @@ export const LP_HERO = {
   cta: "Pedir orçamento no WhatsApp",
   ctaMessage: "Olá, PROLAV! Quero um orçamento. Vou enviar uma foto do meu estofado. [LP]",
   ctaHint: "Envie uma foto do estofado e receba o valor.",
-  proofs: ["5 anos de experiência", "+500 estofados higienizados", "Prêmio Oscar Alagoano"],
+  proofs: ["5 anos de experiência", "+500 estofados higienizados"],
   scrollCue: "Veja resultados reais",
   /** Vídeo real de fundo: vertical 9:16 no celular, recorte 16:9 do mesmo clipe no desktop. */
   video: {

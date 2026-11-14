@@ -1,7 +1,7 @@
 // Conteúdo editável da landing PROLAV. Altere números e textos aqui.
 
 /** Número único de WhatsApp (DDI + DDD + número, só dígitos). */
-export const WHATSAPP_NUMBER = "5582999999999";
+export const WHATSAPP_NUMBER = "5582996877190"; // (82) 99687-7190
 
 /** Mensagem base enviada no WhatsApp (UTMs são anexadas automaticamente). */
 export const WHATSAPP_MESSAGE =
@@ -23,7 +23,6 @@ export const HERO = {
 export const STATS: { prefix?: string; value?: number; suffix?: string; label: string; note: string }[] = [
   { prefix: "+", value: 500, label: "estofados higienizados", note: "em Maceió e região" },
   { value: 5, suffix: " anos", label: "de atuação", note: "desde 2021" },
-  { label: "Prêmio Oscar Alagoano", note: "10ª edição · destaque em serviços" },
 ];
 
 /** Etiqueta do vídeo real exibido no hero. */

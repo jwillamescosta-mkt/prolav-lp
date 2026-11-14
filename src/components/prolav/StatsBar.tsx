@@ -19,7 +19,7 @@ function Counter({ to }: { to: number }) {
 export function StatsBar() {
   return (
     <section aria-label="Provas rápidas" className="bg-paper text-ink">
-      <ul className="mx-auto grid max-w-7xl grid-cols-1 px-5 sm:grid-cols-3 lg:px-8">
+      <ul className="mx-auto grid max-w-7xl grid-cols-1 px-5 sm:grid-cols-2 lg:px-8">
         {STATS.map((s, i) => (
           <li key={s.label} className={`flex flex-col gap-2 py-8 sm:px-8 sm:py-10 ${i > 0 ? "border-t border-rule sm:border-l sm:border-t-0" : "sm:pl-0"}`}>
             {s.value !== undefined ? (
