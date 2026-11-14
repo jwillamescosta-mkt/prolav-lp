@@ -24,14 +24,24 @@ export const CLOSING = {
   footer: "PROLAV Higienização & Estética · Maceió/AL · Desde 2021",
 };
 
-// Entrevista dos sócios em canal local — prova de autoridade antes das dúvidas.
+// Entrevista dos sócios no TH Entrevista (Tribuna Hoje), 13/11/2026 — autoridade de imprensa antes das dúvidas.
 export const INTERVIEW = {
   youtubeId: "FzjEcMhDpNE",
-  kicker: "Quem está por trás",
-  title: "Handerson e Ruana,",
-  titleEmphasis: "na entrevista.",
-  text: "Os sócios Handerson Lima e Ruana Clemente contaram a um canal local como a PROLAV trabalha — e por que limpar vai muito além da superfície: é cuidar das pessoas que vivem naquele ambiente.",
+  kicker: "Na imprensa",
+  source: "TH Entrevista · Tribuna Hoje",
+  date: "13 de novembro de 2026",
+  title: "Higienização de estofados exige cuidados",
+  titleEmphasis: "que vão além da limpeza e da estética.",
+  lead: "No TH Entrevista, do portal Tribuna Hoje, os sócios Handerson Lima e Ruana Clemente explicaram os procedimentos corretos, os riscos da impermeabilização malfeita e o que verificar antes de contratar o serviço.",
   play: "Assistir à entrevista",
-  cta: "Falar com a equipe da PROLAV",
-  ctaMessage: "Olá, PROLAV! Vi a entrevista no site e quero um orçamento.",
+  quotes: [
+    { text: "Cada tipo de estofado precisa de uma avaliação antes da execução do serviço. Não existe um procedimento único que possa ser aplicado em todos os materiais.", name: "Handerson Lima", role: "Sócio da PROLAV" },
+    { text: "Nosso trabalho não deve ser visto apenas como uma limpeza para deixar o estofado bonito. Estamos falando de cuidado, conservação e qualidade de vida.", name: "Ruana Clemente", role: "Sócia da PROLAV" },
+  ],
+  checklistTitle: "Antes de contratar, verifique:",
+  checklist: ["A qualificação dos profissionais", "Os produtos utilizados e sua composição", "Os equipamentos", "Os procedimentos adotados para o seu tecido"],
+  checklistNote: "Na PROLAV, mostramos tudo isso antes de começar. Pergunte no WhatsApp.",
+  credit: "Reportagem: Lucas França · Imagens: Edilson Omena",
+  cta: "Tirar minhas dúvidas no WhatsApp",
+  ctaMessage: "Olá, PROLAV! Vi a entrevista no TH Entrevista e quero tirar dúvidas sobre a higienização do meu estofado.",
 };

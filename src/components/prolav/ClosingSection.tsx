@@ -8,7 +8,7 @@ import { WhatsAppIcon } from "./WhatsAppIcon";
 export function ClosingSection() {
   return (
     <>
-      <section id="duvidas" aria-labelledby="duvidas-title" className="grain bg-paper text-ink">
+      <section id="duvidas" aria-labelledby="duvidas-title" className="grain border-t border-rule bg-paper text-ink">
         <div className="relative mx-auto grid max-w-7xl gap-10 px-5 py-20 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20 lg:px-8 lg:py-28">
           <div>
             <p className="section-index label-mono text-ink/70">{CLOSING.index} <span>{CLOSING.kicker}</span></p>
