@@ -8,6 +8,19 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+/* Fontes servidas pelo próprio site (antes: Google Fonts, que bloqueava a renderização).
+   Só o subconjunto latino (cobre acentos do português) e só os pesos usados. */
+@import "@fontsource/inter/latin-400.css";
+@import "@fontsource/inter/latin-500.css";
+@import "@fontsource/inter/latin-600.css";
+@import "@fontsource/inter/latin-700.css";
+@import "@fontsource/inter-tight/latin-500.css";
+@import "@fontsource/inter-tight/latin-600.css";
+@import "@fontsource/inter-tight/latin-700.css";
+@import "@fontsource/instrument-serif/latin-400-italic.css";
+@import "@fontsource/jetbrains-mono/latin-400.css";
+@import "@fontsource/jetbrains-mono/latin-500.css";
+@import "@fontsource/jetbrains-mono/latin-700.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -343,3 +356,35 @@
 .scrub input[type="range"]:focus-visible { outline: none; }
 .scrub input[type="range"]:focus-visible::-webkit-slider-thumb { outline: 2px solid var(--ice); outline-offset: 3px; }
 .scrub input[type="range"]:focus-visible::-moz-range-thumb { outline: 2px solid var(--ice); outline-offset: 3px; }
+
+/* LANDING /orcamento — véu da hero sobre o vídeo real.
+   Celular: escurece de baixo para cima (texto ancorado embaixo).
+   Desktop: escurece da esquerda para a direita (texto à esquerda, vídeo respira à direita). */
+.lp-hero-veil {
+  background:
+    linear-gradient(0deg, color-mix(in oklab, var(--navy-deep) 96%, transparent) 0%, color-mix(in oklab, var(--navy-deep) 82%, transparent) 45%, color-mix(in oklab, var(--navy-deep) 35%, transparent) 75%, color-mix(in oklab, var(--navy-deep) 55%, transparent) 100%);
+}
+@media (min-width: 1024px) {
+  .lp-hero-veil {
+    background:
+      linear-gradient(90deg, color-mix(in oklab, var(--navy-deep) 94%, transparent) 0%, color-mix(in oklab, var(--navy-deep) 80%, transparent) 38%, color-mix(in oklab, var(--navy-deep) 30%, transparent) 72%, color-mix(in oklab, var(--navy-deep) 20%, transparent) 100%),
+      linear-gradient(180deg, color-mix(in oklab, var(--navy-deep) 55%, transparent) 0%, transparent 22%);
+  }
+}
+
+/* LANDING /orcamento — galerias horizontais (Rail).
+   Barra de rolagem oculta (há setas e linha de progresso); no desktop, as bordas
+   esmaecem para indicar que há mais itens. */
+.rail { scrollbar-width: none; overscroll-behavior-x: contain; }
+.rail::-webkit-scrollbar { display: none; }
+.rail:focus-visible { outline: 2px solid var(--brand-green); outline-offset: 4px; }
+@media (min-width: 1024px) {
+  .rail {
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--fade-l, 0%), #000 calc(100% - var(--fade-r, 0%)), transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 var(--fade-l, 0%), #000 calc(100% - var(--fade-r, 0%)), transparent 100%);
+  }
+}
+.rail-arrow { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid color-mix(in oklab, var(--ice) 25%, transparent); color: var(--ice); transition: background-color .2s, border-color .2s, opacity .2s; }
+.rail-arrow:hover:not(:disabled) { background: var(--ice); color: var(--navy-deep); border-color: var(--ice); }
+.rail-arrow:disabled { opacity: .3; cursor: default; }
+.lp-faq summary::-webkit-details-marker { display: none; }
