@@ -45,7 +45,10 @@ export function openWhatsApp(origin: string, message = WHATSAPP_MESSAGE) {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ event: "Contact", origin });
   window.dataLayer.push({ event: "Lead", origin });
-  if (typeof window.fbq === "function") window.fbq("track", "Lead");
+  if (typeof window.fbq === "function") {
+    window.fbq("track", "Lead", { content_name: origin });
+    window.fbq("track", "Contact");
+  }
   // Navegadores embutidos (Instagram/Facebook) costumam bloquear nova aba: nesse caso abre na mesma.
   const url = buildWhatsAppUrl(message);
   const win = window.open(url, "_blank");

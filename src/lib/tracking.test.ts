@@ -17,4 +17,14 @@ describe("WhatsApp com diagnóstico e origem", () => {
     expect(new URL(String(open.mock.calls[0]?.[0])).searchParams.get("text")).toBe("Diagnóstico revisado");
     open.mockRestore();
   });
+  it("dispara fbq Lead com a origem e fbq Contact", () => {
+    const open = vi.spyOn(window, "open").mockReturnValue({} as Window);
+    const fbq = vi.fn();
+    window.fbq = fbq;
+    openWhatsApp("persona-pet", "Olá! Tenho pet.");
+    expect(fbq).toHaveBeenNthCalledWith(1, "track", "Lead", { content_name: "persona-pet" });
+    expect(fbq).toHaveBeenNthCalledWith(2, "track", "Contact");
+    delete window.fbq;
+    open.mockRestore();
+  });
 });
