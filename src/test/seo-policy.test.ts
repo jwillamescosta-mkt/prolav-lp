@@ -8,12 +8,18 @@ const sitemap = new DOMParser().parseFromString(
 );
 
 describe("Sitemap public visibility", () => {
-  it("includes only the institutional homepage, excluding the ad landing", () => {
+  it("lists the main landing first and the institutional homepage second", () => {
     const urls = Array.from(sitemap.getElementsByTagName("loc"), (node) => node.textContent);
-    expect(urls).toEqual(["https://prolav-lp.lovable.app/"]);
+    expect(urls).toEqual(["https://prolav-lp.lovable.app/orcamento", "https://prolav-lp.lovable.app/"]);
   });
 
-  it("records the homepage content change on 23/11/2026", () => {
-    expect(sitemap.getElementsByTagName("lastmod").item(0)?.textContent).toBe("2026-11-23");
+  it("gives the main landing the highest priority", () => {
+    const priorities = Array.from(sitemap.getElementsByTagName("priority"), (n) => Number(n.textContent));
+    expect(priorities).toEqual([1, 0.7]);
+  });
+
+  it("records the content change on 23/11/2026", () => {
+    const dates = Array.from(sitemap.getElementsByTagName("lastmod"), (n) => n.textContent);
+    expect(dates).toEqual(["2026-11-23", "2026-11-23"]);
   });
 });

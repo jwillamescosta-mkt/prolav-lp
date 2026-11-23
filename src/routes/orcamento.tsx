@@ -8,7 +8,9 @@ import { LpResults } from "@/components/lp/LpResults";
 import { LpServices } from "@/components/lp/LpServices";
 import { LpClosing } from "@/components/lp/LpClosing";
 import { InterviewSection } from "@/components/prolav/InterviewSection";
-import { SITE_URL } from "@/data/lp";
+import { SITE_URL, LP_CLOSING } from "@/data/lp";
+import { CLOSING } from "@/data/closing";
+import { WHATSAPP_NUMBER } from "@/data/content";
 // Fontes do título (LCP): pré-carregadas para o H1 não esperar o CSS descobrir o arquivo.
 // Vite deduplica pelo conteúdo, então é o mesmo arquivo que o @fontsource referencia.
 import fontTitle from "@fontsource/inter-tight/files/inter-tight-latin-600-normal.woff2?url";
@@ -17,22 +19,24 @@ import fontEmphasis from "@fontsource/instrument-serif/files/instrument-serif-la
 export const Route = createFileRoute("/orcamento")({
   head: () => ({
     meta: [
-      { title: "Orçamento | PROLAV Higienização & Blindagem de Estofados em Maceió" },
+      { title: "Higienização de Estofados em Maceió | Orçamento PROLAV" },
       {
         name: "description",
         content:
-          "Higienização profunda e blindagem de sofás, colchões e tapetes em domicílio em Maceió. Envie uma foto do estofado no WhatsApp e receba o orçamento.",
+          "Higienização e blindagem de sofás, colchões, tapetes e cadeiras em domicílio em Maceió e Alagoas. Envie uma foto no WhatsApp e receba o orçamento.",
       },
-      // Página de anúncio: fora do Google para não competir com a página principal
-      { name: "robots", content: "noindex, follow" },
-      { property: "og:title", content: "PROLAV | Seu conforto tratado com excelência" },
+      // Página principal para o Google (e também a landing dos anúncios)
+      { name: "robots", content: "index, follow" },
+      { property: "og:title", content: "Higienização de Estofados em Maceió | PROLAV" },
       {
         property: "og:description",
         content:
-          "Higienização e blindagem de estofados em domicílio em Maceió. Orçamento pelo WhatsApp.",
+          "Higienização e blindagem de estofados em domicílio em Maceió e Alagoas. Orçamento pelo WhatsApp.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: `${SITE_URL}/orcamento` },
+      { property: "og:locale", content: "pt_BR" },
+      { property: "og:site_name", content: "PROLAV" },
       // Prévia do link no WhatsApp, Instagram e Facebook (1200×630)
       { property: "og:image", content: `${SITE_URL}/og-orcamento.jpg` },
       { property: "og:image:width", content: "1200" },
@@ -42,9 +46,70 @@ export const Route = createFileRoute("/orcamento")({
         content: "Técnicos da PROLAV higienizando um sofá em apartamento",
       },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Higienização de Estofados em Maceió | PROLAV" },
+      {
+        name: "twitter:description",
+        content:
+          "Higienização e blindagem de estofados em domicílio em Maceió e Alagoas. Orçamento pelo WhatsApp.",
+      },
       { name: "twitter:image", content: `${SITE_URL}/og-orcamento.jpg` },
     ],
+    // Dados estruturados no HTML do servidor: negócio local + as dúvidas visíveis na página
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "LocalBusiness",
+              name: "PROLAV Higienização & Estética",
+              description: "Higienização e blindagem de estofados em domicílio.",
+              url: `${SITE_URL}/orcamento`,
+              image: `${SITE_URL}/og-orcamento.jpg`,
+              telephone: `+${WHATSAPP_NUMBER}`,
+              areaServed: [
+                { "@type": "City", name: "Maceió" },
+                { "@type": "AdministrativeArea", name: "Alagoas" },
+              ],
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Maceió",
+                addressRegion: "AL",
+                addressCountry: "BR",
+              },
+              sameAs: [CLOSING.instagram.url],
+              hasOfferCatalog: {
+                "@type": "OfferCatalog",
+                name: "Serviços PROLAV",
+                itemListElement: [
+                  "Higienização de sofás e poltronas",
+                  "Blindagem têxtil",
+                  "Higienização de colchões",
+                  "Higienização de tapetes e cadeiras",
+                ].map((name) => ({
+                  "@type": "Offer",
+                  itemOffered: { "@type": "Service", name },
+                })),
+              },
+            },
+            {
+              "@type": "FAQPage",
+              mainEntity: LP_CLOSING.faqPick
+                .map((i) => CLOSING.faq[i])
+                .filter((f): f is (typeof CLOSING.faq)[number] => Boolean(f))
+                .map((f) => ({
+                  "@type": "Question",
+                  name: f.q,
+                  acceptedAnswer: { "@type": "Answer", text: f.a },
+                })),
+            },
+          ],
+        }),
+      },
+    ],
     links: [
+      { rel: "canonical", href: `${SITE_URL}/orcamento` },
       { rel: "preload", as: "font", type: "font/woff2", href: fontTitle, crossOrigin: "anonymous" },
       {
         rel: "preload",

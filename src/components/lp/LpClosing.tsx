@@ -31,6 +31,11 @@ export function LpClosing() {
             {LP_CLOSING.cta}
           </button>
           <p className="label-mono mt-5 text-ice/70">{LP_CLOSING.microproof}</p>
+
+          <h2 className="mt-12 text-xl font-semibold text-ice">{LP_CLOSING.areaTitle}</h2>
+          <p className="mt-3 max-w-md text-base leading-relaxed text-ice/75">
+            {LP_CLOSING.areaText}
+          </p>
         </div>
 
         <div>
@@ -56,6 +61,9 @@ export function LpClosing() {
       <footer className="border-t border-ice/15 px-5 pb-24 pt-8 lg:px-8">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 text-sm text-ice/70 sm:flex-row sm:items-center sm:justify-between">
           <p>{CLOSING.footer}</p>
+          <a href="/" className="link-arrow self-start text-ice">
+            {LP_CLOSING.homeLinkLabel}
+          </a>
           <a
             href={CLOSING.instagram.url}
             target="_blank"

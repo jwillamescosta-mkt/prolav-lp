@@ -24,7 +24,7 @@ export function LpHero() {
 
         <h1
           id="lp-title"
-          className="mt-6 max-w-3xl text-[2.75rem] font-semibold leading-[0.98] sm:text-6xl lg:text-[5.25rem]"
+          className="mt-6 max-w-3xl text-[2.75rem] font-semibold leading-[0.98] sm:text-6xl lg:max-w-5xl lg:text-[4rem]"
         >
           {LP_HERO.title}{" "}
           <span className="em-serif mt-2 block text-brand-green">{LP_HERO.titleEmphasis}</span>

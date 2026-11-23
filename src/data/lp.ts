@@ -8,8 +8,8 @@ export const SITE_URL = "https://prolav-lp.lovable.app";
 export const LP_HERO = {
   badge: "Higienização & blindagem de estofados · Maceió",
   /** H1 em duas linhas: a segunda em serifa itálica verde. Frase da marca. */
-  title: "Seu conforto",
-  titleEmphasis: "tratado com excelência.",
+  title: "Higienização de estofados em Maceió:",
+  titleEmphasis: "seu conforto tratado com excelência.",
   subtitle: "Sofás, colchões e cadeiras limpos, higienizados e blindados, sem sair de casa.",
   cta: "Pedir orçamento no WhatsApp",
   ctaMessage: "Olá, PROLAV! Quero um orçamento. Vou enviar uma foto do meu estofado. [LP]",
@@ -276,4 +276,9 @@ export const LP_CLOSING = {
   cta: "Enviar foto no WhatsApp",
   ctaMessage: "Olá, PROLAV! Quero um orçamento. Vou enviar uma foto do meu estofado. [LP-final]",
   microproof: "Grátis e sem compromisso · Resposta em minutos · Técnicos uniformizados",
+  /** Bloco "Onde atendemos" (SEO local). Bairros vêm de CLOSING.areas. */
+  areaTitle: "Onde atendemos",
+  areaText:
+    "Higienização e blindagem de estofados em domicílio em Maceió e em todo o estado de Alagoas, por agendamento e rota. Em Maceió, atendemos bairros como Ponta Verde, Pajuçara e Jatiúca, e região.",
+  homeLinkLabel: "Conheça a PROLAV",
 };

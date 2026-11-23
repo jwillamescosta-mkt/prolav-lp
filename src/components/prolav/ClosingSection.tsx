@@ -44,6 +44,9 @@ export function ClosingSection() {
         <footer className="border-t border-ice/15 px-5 pb-24 pt-8 lg:px-8">
           <div className="mx-auto flex max-w-7xl flex-col gap-3 text-sm text-ice/70 sm:flex-row sm:items-center sm:justify-between">
             <p>{CLOSING.footer}</p>
+            <a href="/orcamento" className="link-arrow self-start text-ice">
+              Orçamento de higienização de estofados em Maceió
+            </a>
             <a href={CLOSING.instagram.url} target="_blank" rel="noopener noreferrer" className="link-arrow self-start text-ice">
               Instagram {CLOSING.instagram.handle}
             </a>
