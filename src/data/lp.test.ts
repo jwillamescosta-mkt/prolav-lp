@@ -2,10 +2,16 @@
 import { existsSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
-import { BEFORE_AFTER, LP_VIDEOS } from "./lp";
+import { BEFORE_AFTER, LP_VIDEOS, SITE_URL } from "./lp";
 
 const media = (file: string, w: number) =>
   resolve(__dirname, "../../public/media/antes-depois", `${file}-${w}.webp`);
+
+describe("SITE_URL", () => {
+  it("uses the published PROLAV origin", () => {
+    expect(SITE_URL).toBe("https://prolav-lp.lovable.app");
+  });
+});
 
 describe("BEFORE_AFTER", () => {
   it("has unique cases and unique original photos", () => {

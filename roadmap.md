@@ -50,3 +50,9 @@
 - [x] Imagem de compartilhamento 1200×630 (og:image) com porta-retratos do cliente desfocados.
 - [x] Resultado (celular, 4G simulado, com compressão): desempenho 88 → 94; LCP 3,6 s → 2,9 s; FCP 2,1 s → 1,8 s; axe sem violações.
 - [ ] Antes de anunciar: número real do WhatsApp (src/data/content.ts), IDs de Meta Pixel/GTM + política de privacidade (LGPD).
+
+# SEO técnico e local — home
+- [x] Corrigir origem pública e completar metadados e LocalBusiness da home, preservando FAQ e tracking.
+- [x] Preparar sitemap somente da home e referenciá-lo em robots.txt; disponível no site na próxima publicação.
+- [x] Ajustar H1 e descrições de imagens de conteúdo sem alterar estilos.
+- [x] Executar testes existentes e verificar metadados e schema no HTML do servidor.

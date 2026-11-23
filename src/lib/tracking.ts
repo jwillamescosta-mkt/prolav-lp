@@ -1,5 +1,7 @@
 // Rastreamento de UTM + eventos de conversão (GTM / Meta Pixel).
 import { WHATSAPP_MESSAGE, WHATSAPP_NUMBER } from "@/data/content";
+// Reexporta a constante única para os dados estruturados, sem alterar o rastreamento.
+export { WHATSAPP_NUMBER };
 
 declare global {
   interface Window {

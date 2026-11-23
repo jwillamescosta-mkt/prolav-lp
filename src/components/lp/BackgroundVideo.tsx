@@ -91,8 +91,7 @@ export function BackgroundVideo({ src, poster, desktopSrc, desktopPoster, label 
         {desktopPoster && <source media={WIDE} srcSet={desktopPoster} type="image/webp" />}
         <img
           src={poster}
-          alt=""
-          aria-hidden="true"
+          alt={label}
           fetchPriority="high"
           decoding="async"
           className="absolute inset-0 h-full w-full object-cover"

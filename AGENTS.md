@@ -35,3 +35,4 @@ use the editor.
 - Keep landing copy in `src/data/content.ts` and diagnosis rules in a pure tested module so business changes stay independent of rendering.
 - Lazy-load browser-only Three.js scenes after intersection; retain CSS and poster fallbacks to preserve SSR and reduced-motion accessibility.
 - Reuse the WhatsApp tracking helper for all contact messages so persona and quiz submissions preserve attribution.
+- Keep the sitemap as a static public XML containing only indexable pages; use fixed page-content change dates, never generation dates, so the ad landing stays excluded.

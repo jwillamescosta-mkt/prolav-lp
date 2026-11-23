@@ -46,7 +46,7 @@ export function InterviewSection() {
                 <img
                   src={`https://i.ytimg.com/vi/${id}/maxresdefault.jpg`}
                   onError={(e) => { e.currentTarget.src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`; }}
-                  alt=""
+                  alt="Handerson Lima e Ruana Clemente, sócios da PROLAV, no TH Entrevista da Tribuna Hoje"
                   loading="lazy"
                   decoding="async"
                   className="h-full w-full object-cover"

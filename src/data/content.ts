@@ -9,7 +9,7 @@ export const WHATSAPP_MESSAGE =
 
 export const HERO = {
   badge: "Higienização & blindagem de estofados — Maceió/AL",
-  title: "Seu sofá parece limpo. Mas é lá dentro que mora o problema.",
+  title: "Higienização de estofados em Maceió. Limpeza lá dentro, conforto de verdade.",
   /** Trecho do título destacado em serifa itálica. */
   titleEmphasis: "lá dentro",
   subtitle:

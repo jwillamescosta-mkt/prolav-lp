@@ -3,7 +3,7 @@
 // Fatos e números vêm do playbook da PROLAV — altere aqui, não nos componentes.
 
 /** Endereço público do site (usado na imagem de compartilhamento). Troque se mudar de domínio. */
-export const SITE_URL = "https://prolav.lovable.app";
+export const SITE_URL = "https://prolav-lp.lovable.app";
 
 export const LP_HERO = {
   badge: "Higienização & blindagem de estofados · Maceió",
