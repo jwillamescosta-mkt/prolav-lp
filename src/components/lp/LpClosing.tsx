@@ -6,6 +6,7 @@ import { ChevronDown } from "lucide-react";
 import { CLOSING } from "@/data/closing";
 import { LP_CLOSING } from "@/data/lp";
 import { openWhatsApp } from "@/lib/tracking";
+import { startLead } from "@/lib/qualification";
 import { WhatsAppIcon } from "@/components/prolav/WhatsAppIcon";
 
 export function LpClosing() {
@@ -24,7 +25,7 @@ export function LpClosing() {
             {LP_CLOSING.finalText}
           </p>
           <button
-            onClick={() => openWhatsApp("lp-final", LP_CLOSING.ctaMessage)}
+            onClick={() => startLead("lp-final", LP_CLOSING.ctaMessage, openWhatsApp)}
             className="btn-whatsapp mt-9 min-h-16 w-full px-8 py-3 text-lg sm:w-auto"
           >
             <WhatsAppIcon className="h-6 w-6 shrink-0" />

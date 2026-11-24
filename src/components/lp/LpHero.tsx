@@ -3,6 +3,7 @@
 import { ArrowDown } from "lucide-react";
 import { LP_HERO } from "@/data/lp";
 import { openWhatsApp } from "@/lib/tracking";
+import { startLead } from "@/lib/qualification";
 import { WhatsAppIcon } from "@/components/prolav/WhatsAppIcon";
 import { BackgroundVideo } from "./BackgroundVideo";
 
@@ -37,7 +38,7 @@ export function LpHero() {
         <div className="mt-9 flex flex-col items-stretch gap-3 sm:items-start">
           <button
             data-hide-wa-float
-            onClick={() => openWhatsApp("lp-hero", LP_HERO.ctaMessage)}
+            onClick={() => startLead("lp-hero", LP_HERO.ctaMessage, openWhatsApp)}
             className="btn-whatsapp min-h-14 px-7 text-base sm:text-lg"
           >
             <WhatsAppIcon className="h-5 w-5 shrink-0" />

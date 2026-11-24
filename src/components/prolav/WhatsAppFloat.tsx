@@ -5,7 +5,9 @@
 import { useEffect, useState } from "react";
 import { useRouterState } from "@tanstack/react-router";
 import { captureUtms, openWhatsApp } from "@/lib/tracking";
+import { startLead } from "@/lib/qualification";
 import { WhatsAppIcon } from "./WhatsAppIcon";
+import { WHATSAPP_MESSAGE } from "@/data/content";
 
 export function WhatsAppFloat() {
   const [hidden, setHidden] = useState(false);
@@ -27,7 +29,7 @@ export function WhatsAppFloat() {
 
   return (
     <button
-      onClick={() => openWhatsApp("float")}
+      onClick={() => startLead("float", WHATSAPP_MESSAGE, openWhatsApp)}
       // Nome acessível contém o texto visível (WCAG 2.5.3)
       aria-label="Orçamento grátis pelo WhatsApp"
       aria-hidden={hidden || undefined}

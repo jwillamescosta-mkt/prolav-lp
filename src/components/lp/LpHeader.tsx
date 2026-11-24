@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Logo } from "@/components/prolav/Logo";
 import { WhatsAppIcon } from "@/components/prolav/WhatsAppIcon";
 import { openWhatsApp } from "@/lib/tracking";
+import { startLead } from "@/lib/qualification";
 import { LP_HERO } from "@/data/lp";
 
 export function LpHeader() {
@@ -24,7 +25,7 @@ export function LpHeader() {
           <Logo />
         </a>
         <button
-          onClick={() => openWhatsApp("lp-header", LP_HERO.ctaMessage)}
+          onClick={() => startLead("lp-header", LP_HERO.ctaMessage, openWhatsApp)}
           className="btn-whatsapp h-10 px-4 text-sm"
         >
           <WhatsAppIcon className="h-4 w-4" />

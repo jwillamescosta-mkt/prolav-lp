@@ -7,6 +7,7 @@ import { LpHero } from "@/components/lp/LpHero";
 import { LpResults } from "@/components/lp/LpResults";
 import { LpServices } from "@/components/lp/LpServices";
 import { LpClosing } from "@/components/lp/LpClosing";
+import { LeadQualifier } from "@/components/lp/LeadQualifier";
 import { InterviewSection } from "@/components/prolav/InterviewSection";
 import { SITE_URL, LP_CLOSING } from "@/data/lp";
 import { CLOSING } from "@/data/closing";
@@ -153,6 +154,7 @@ function Orcamento() {
         <InterviewSection />
         <LpClosing />
       </main>
+      <LeadQualifier />
     </>
   );
 }

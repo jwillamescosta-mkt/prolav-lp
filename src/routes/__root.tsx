@@ -13,6 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { WhatsAppFloat } from "../components/prolav/WhatsAppFloat";
+import { CLARITY_ID, GA4_ID, GTM_ID } from "../data/analytics";
 
 function NotFoundComponent() {
   return (
@@ -114,6 +115,31 @@ function RootShell({ children }: { children: ReactNode }) {
 
           Atenção: configure consentimento (LGPD) e política de privacidade.
         */}
+        {/* Medição opcional: só carrega se o ID estiver preenchido em src/data/analytics.ts */}
+        {GTM_ID ? (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`,
+            }}
+          />
+        ) : null}
+        {GA4_ID ? (
+          <>
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`} />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','${GA4_ID}');`,
+              }}
+            />
+          </>
+        ) : null}
+        {CLARITY_ID ? (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${CLARITY_ID}");`,
+            }}
+          />
+        ) : null}
         {/* Meta Pixel (ID real da PROLAV) */}
         <script
           dangerouslySetInnerHTML={{

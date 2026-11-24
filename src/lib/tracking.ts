@@ -7,6 +7,7 @@ declare global {
   interface Window {
     dataLayer?: Record<string, unknown>[];
     fbq?: (...args: unknown[]) => void;
+    gtag?: (...args: unknown[]) => void;
   }
 }
 
@@ -24,6 +25,7 @@ export function captureUtms() {
     if (v) found[k] = v;
   });
   if (Object.keys(found).length) sessionStorage.setItem(STORAGE_KEY, JSON.stringify(found));
+  captureSource();
 }
 
 function getUtms(): Record<string, string> {
@@ -34,22 +36,108 @@ function getUtms(): Record<string, string> {
   }
 }
 
-/** Monta o link do WhatsApp com UTMs anexadas ao texto. */
+const SOURCE_KEY = "prolav_src";
+const CODE_KEY = "prolav_lead_code";
+
+/** Origem do visitante: UTM > clique de anúncio (gclid/fbclid) > site de onde veio > direto. */
+export function detectSource(
+  utms: Record<string, string>,
+  referrer: string,
+  ownHost: string,
+): string {
+  const source = utms["utm_source"];
+  if (source) return utms["utm_medium"] ? `${source}/${utms["utm_medium"]}` : source;
+  if (utms["gclid"]) return "google/ads";
+  if (utms["fbclid"]) return "meta/ads";
+  if (!referrer) return "direto";
+  let host = "";
+  try {
+    host = new URL(referrer).hostname.replace(/^www\./, "");
+  } catch {
+    return "direto";
+  }
+  if (!host || host === ownHost) return "direto";
+  if (/(^|\.)google\./.test(host)) return "google/organico";
+  if (/(^|\.)(instagram|facebook|fb|l\.facebook|lm\.facebook)\./.test(host) || host === "l.instagram.com")
+    return "meta/organico";
+  return `site/${host}`;
+}
+
+/** Guarda a origem da primeira visita (antes de o visitante navegar pelo site). */
+export function captureSource() {
+  if (typeof window === "undefined") return;
+  try {
+    if (sessionStorage.getItem(SOURCE_KEY)) return;
+    sessionStorage.setItem(
+      SOURCE_KEY,
+      detectSource(getUtms(), document.referrer, window.location.hostname.replace(/^www\./, "")),
+    );
+  } catch {
+    /* sessionStorage indisponível: segue sem origem guardada */
+  }
+}
+
+function getSource(): string {
+  try {
+    return sessionStorage.getItem(SOURCE_KEY) || "direto";
+  } catch {
+    return "direto";
+  }
+}
+
+/** Código curto do lead (ex.: PRL-7K2Q): aparece na mensagem e nos eventos, para casar lead e venda. */
+export function getLeadCode(): string {
+  try {
+    const saved = sessionStorage.getItem(CODE_KEY);
+    if (saved) return saved;
+    const alphabet = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
+    const bytes = new Uint8Array(4);
+    crypto.getRandomValues(bytes);
+    const code = "PRL-" + Array.from(bytes, (b) => alphabet[b % alphabet.length]).join("");
+    sessionStorage.setItem(CODE_KEY, code);
+    return code;
+  } catch {
+    return "PRL-" + Math.random().toString(36).slice(2, 6).toUpperCase();
+  }
+}
+
+/** Monta o link do WhatsApp com código do lead, origem e UTMs anexados ao texto. */
 export function buildWhatsAppUrl(message = WHATSAPP_MESSAGE) {
   const utms = getUtms();
-  const tail = Object.entries(utms).map(([k, v]) => `${k}=${v}`).join(" | ");
-  const text = tail ? `${message}\n\n[ref: ${tail}]` : message;
+  const parts = [getLeadCode(), `origem=${getSource()}`];
+  Object.entries(utms).forEach(([k, v]) => parts.push(`${k}=${v}`));
+  const text = `${message}\n\n[ref: ${parts.join(" | ")}]`;
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 }
 
-/** Dispara eventos e abre o WhatsApp. */
-export function openWhatsApp(origin: string, message = WHATSAPP_MESSAGE) {
+export interface LeadExtras {
+  quality?: "hot" | "warm" | "cold";
+  items?: string[];
+  area?: string;
+  when?: string;
+}
+
+/** Dispara eventos (GTM/GA4/Meta Pixel) e abre o WhatsApp. */
+export function openWhatsApp(origin: string, message = WHATSAPP_MESSAGE, extras: LeadExtras = {}) {
+  const code = getLeadCode();
+  const params = {
+    content_name: origin,
+    lead_code: code,
+    lead_source: getSource(),
+    ...(extras.quality ? { lead_quality: extras.quality } : {}),
+    ...(extras.area ? { lead_area: extras.area } : {}),
+    ...(extras.when ? { lead_when: extras.when } : {}),
+    ...(extras.items?.length ? { lead_items: extras.items.join(",") } : {}),
+  };
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ event: "Contact", origin });
-  window.dataLayer.push({ event: "Lead", origin });
+  window.dataLayer.push({ event: "Lead", origin, ...params });
+  if (typeof window.gtag === "function") window.gtag("event", "generate_lead", params);
   if (typeof window.fbq === "function") {
-    window.fbq("track", "Lead", { content_name: origin });
+    window.fbq("track", "Lead", params, { eventID: code });
     window.fbq("track", "Contact");
+    // Evento próprio: só leads com pedido claro e prazo. Dá para otimizar anúncios por ele.
+    if (extras.quality && extras.quality !== "cold") window.fbq("trackCustom", "LeadQualificado", params);
   }
   // Navegadores embutidos (Instagram/Facebook) costumam bloquear nova aba: nesse caso abre na mesma.
   const url = buildWhatsAppUrl(message);
