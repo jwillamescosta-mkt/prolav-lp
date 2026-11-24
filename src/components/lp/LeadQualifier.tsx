@@ -1,5 +1,5 @@
 // Pergunta rápida (3 toques) antes de abrir o WhatsApp na landing /orcamento.
-// Quem não quer responder pula e vai direto: o clique nunca é perdido.
+// Quem não quer responder toca em "Pular e falar agora" e vai direto; fechar (X/Esc) só cancela.
 import { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { WhatsAppIcon } from "@/components/prolav/WhatsAppIcon";
@@ -58,7 +58,7 @@ export function LeadQualifier() {
     setItems((cur) => (cur.includes(item) ? cur.filter((i) => i !== item) : [...cur, item]));
 
   return (
-    <Dialog open={pending !== null} onOpenChange={(open) => !open && skip()}>
+    <Dialog open={pending !== null} onOpenChange={(open) => !open && close()}>
       <DialogContent className="max-h-[92svh] overflow-y-auto border-ice/15 bg-navy-deep text-ice sm:max-w-md">
         <DialogTitle className="text-xl font-semibold">Para o orçamento sair certo</DialogTitle>
         <DialogDescription className="text-sm text-ice/75">
