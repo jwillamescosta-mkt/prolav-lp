@@ -1,5 +1,6 @@
 // Rastreamento de UTM + eventos de conversão (GTM / Meta Pixel).
 import { WHATSAPP_MESSAGE, WHATSAPP_NUMBER } from "@/data/content";
+import { GOOGLE_ADS_ID, GOOGLE_ADS_LEAD_LABEL } from "@/data/analytics";
 // Reexporta a constante única para os dados estruturados, sem alterar o rastreamento.
 export { WHATSAPP_NUMBER };
 
@@ -132,7 +133,12 @@ export function openWhatsApp(origin: string, message = WHATSAPP_MESSAGE, extras:
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ event: "Contact", origin });
   window.dataLayer.push({ event: "Lead", origin, ...params });
-  if (typeof window.gtag === "function") window.gtag("event", "generate_lead", params);
+  if (typeof window.gtag === "function") {
+    window.gtag("event", "generate_lead", params);
+    // Conversão do Google Ads (só dispara quando o ID e o rótulo estiverem preenchidos)
+    if (GOOGLE_ADS_ID && GOOGLE_ADS_LEAD_LABEL)
+      window.gtag("event", "conversion", { send_to: `${GOOGLE_ADS_ID}/${GOOGLE_ADS_LEAD_LABEL}`, transaction_id: code });
+  }
   if (typeof window.fbq === "function") {
     window.fbq("track", "Lead", params, { eventID: code });
     window.fbq("track", "Contact");

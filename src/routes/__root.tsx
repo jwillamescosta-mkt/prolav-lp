@@ -13,7 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { WhatsAppFloat } from "../components/prolav/WhatsAppFloat";
-import { CLARITY_ID, GA4_ID, GTM_ID } from "../data/analytics";
+import { CLARITY_ID, GA4_ID, GOOGLE_ADS_ID, GTM_ID } from "../data/analytics";
 
 function NotFoundComponent() {
   return (
@@ -123,12 +123,14 @@ function RootShell({ children }: { children: ReactNode }) {
             }}
           />
         ) : null}
-        {GA4_ID ? (
+        {GA4_ID || GOOGLE_ADS_ID ? (
           <>
-            <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`} />
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID || GOOGLE_ADS_ID}`} />
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','${GA4_ID}');`,
+                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());${
+                  GA4_ID ? `gtag('config','${GA4_ID}');` : ""
+                }${GOOGLE_ADS_ID ? `gtag('config','${GOOGLE_ADS_ID}');` : ""}`,
               }}
             />
           </>

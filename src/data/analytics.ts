@@ -7,3 +7,8 @@ export const GTM_ID = "";
 export const GA4_ID = "";
 /** Microsoft Clarity (gratuito): mapa de calor e gravações de sessão. */
 export const CLARITY_ID = "";
+
+/** Google Ads: ID da conta de conversão (AW-XXXXXXXXXX), da tela "Ação de conversão > Tag do Google". */
+export const GOOGLE_ADS_ID = "";
+/** Rótulo da ação de conversão "Lead WhatsApp" (parte depois da barra em AW-XXXXXXXXXX/ROTULO). */
+export const GOOGLE_ADS_LEAD_LABEL = "";
