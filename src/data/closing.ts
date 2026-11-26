@@ -11,6 +11,9 @@ export const CLOSING = {
     { q: "Por que custa mais do que uma lavagem comum?", a: "A limpeza informal costuma usar sabão e água em excesso, que empurram a sujeira para a espuma e favorecem o mofo. Aqui você paga por extração profissional, produto certificado e cuidado com um estofado que vale milhares de reais." },
     { q: "Como funciona o orçamento?", a: "Você manda uma foto do estofado pelo WhatsApp, conta o que quer tratar e recebe o valor. É grátis e sem compromisso." },
     { q: "Atendem empresas e emitem nota fiscal?", a: "Sim. Clínicas, escritórios, pousadas e hotéis, com nota fiscal e horário combinado para não parar o seu atendimento." },
+    // Perguntas na forma como são buscadas no Google (FAQ da /orcamento)
+    { q: "Quanto custa higienizar um sofá em Maceió?", a: "Depende do tamanho, do tecido e do estado do estofado. Mande uma foto pelo WhatsApp e receba o orçamento grátis e sem compromisso." },
+    { q: "Quais bairros de Maceió vocês atendem?", a: "Atendemos em domicílio Ponta Verde, Pajuçara, Jatiúca, Mangabeiras, Cruz das Almas, Jacarecica, Guaxuma, Farol, Gruta de Lourdes, Serraria, Aldebaran, San Nicolas e a região metropolitana de Maceió." },
   ],
   areaTitle: "Atendimento em domicílio em Maceió e região metropolitana",
   areas: ["Ponta Verde", "Pajuçara", "Jatiúca", "Mangabeiras", "Cruz das Almas", "Jacarecica", "Guaxuma", "Farol", "Gruta de Lourdes", "Serraria", "Aldebaran", "San Nicolas"],
@@ -21,7 +24,7 @@ export const CLOSING = {
   ctaMessage: "Olá, PROLAV! Quero um orçamento de higienização. Vou enviar uma foto do meu estofado.",
   microproof: "Grátis e sem compromisso · Resposta em minutos · Técnicos uniformizados",
   instagram: { handle: "@prolav_higienizacao", url: "https://www.instagram.com/prolav_higienizacao/" },
-  footer: "PROLAV Higienização & Estética · Maceió/AL · Desde 2021",
+  footer: "PROLAV Higienização & Estética · Maceió/AL · Desde 2021 · Emitimos nota fiscal",
 };
 
 // Entrevista dos sócios no TH Entrevista (Tribuna Hoje), 13/11/2026 — autoridade de imprensa antes das dúvidas.

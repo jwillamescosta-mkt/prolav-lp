@@ -72,6 +72,7 @@ export const Route = createFileRoute("/orcamento")({
               areaServed: [
                 { "@type": "City", name: "Maceió" },
                 { "@type": "AdministrativeArea", name: "Alagoas" },
+                ...CLOSING.areas.map((name) => ({ "@type": "Place", name: `${name}, Maceió - AL` })),
               ],
               address: {
                 "@type": "PostalAddress",
@@ -80,6 +81,9 @@ export const Route = createFileRoute("/orcamento")({
                 addressCountry: "BR",
               },
               sameAs: [CLOSING.instagram.url],
+              priceRange: "$$$",
+              foundingDate: "2021",
+              geo: { "@type": "GeoCoordinates", latitude: -9.6658, longitude: -35.7353 },
               hasOfferCatalog: {
                 "@type": "OfferCatalog",
                 name: "Serviços PROLAV",
@@ -93,6 +97,13 @@ export const Route = createFileRoute("/orcamento")({
                   itemOffered: { "@type": "Service", name },
                 })),
               },
+            },
+            {
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "PROLAV", item: `${SITE_URL}/` },
+                { "@type": "ListItem", position: 2, name: "Orçamento", item: `${SITE_URL}/orcamento` },
+              ],
             },
             {
               "@type": "FAQPage",
@@ -125,7 +136,7 @@ export const Route = createFileRoute("/orcamento")({
         as: "image",
         href: "/media/hero-lp.webp",
         type: "image/webp",
-        media: "(max-width: 1023px)",
+        media: "not all and (min-width: 1024px) and (orientation: landscape)",
       },
       {
         rel: "preload",

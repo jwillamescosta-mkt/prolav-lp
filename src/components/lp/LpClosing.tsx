@@ -4,6 +4,7 @@
 // sem os ~58 KB de JavaScript do componente Radix nesta página.
 import { ChevronDown } from "lucide-react";
 import { CLOSING } from "@/data/closing";
+import { WHATSAPP_DISPLAY, WHATSAPP_NUMBER } from "@/data/content";
 import { LP_CLOSING } from "@/data/lp";
 import { openWhatsApp } from "@/lib/tracking";
 import { startLead } from "@/lib/qualification";
@@ -61,7 +62,12 @@ export function LpClosing() {
       {/* pb extra: o botão flutuante não cobre o rodapé no celular */}
       <footer className="border-t border-ice/15 px-5 pb-24 pt-8 lg:px-8">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 text-sm text-ice/70 sm:flex-row sm:items-center sm:justify-between">
-          <p>{CLOSING.footer}</p>
+          <p>
+            {CLOSING.footer} ·{" "}
+            <a href={`tel:+${WHATSAPP_NUMBER}`} className="underline-offset-4 hover:underline">
+              {WHATSAPP_DISPLAY}
+            </a>
+          </p>
           <a href="/" className="link-arrow self-start text-ice">
             {LP_CLOSING.homeLinkLabel}
           </a>

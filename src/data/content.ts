@@ -1,7 +1,8 @@
 // Conteúdo editável da landing PROLAV. Altere números e textos aqui.
 
 /** Número único de WhatsApp (DDI + DDD + número, só dígitos). */
-export const WHATSAPP_NUMBER = "5582996877190"; // (82) 99687-7190
+export const WHATSAPP_NUMBER = "5582996877190";
+export const WHATSAPP_DISPLAY = "(82) 99687-7190"; // (82) 99687-7190
 
 /** Mensagem base enviada no WhatsApp (UTMs são anexadas automaticamente). */
 export const WHATSAPP_MESSAGE =

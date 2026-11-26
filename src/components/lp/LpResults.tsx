@@ -85,7 +85,7 @@ function BeforeAfterCard({ item }: { item: BeforeAfterCase }) {
               loading="lazy"
               decoding="async"
               aria-hidden={i !== active}
-              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${i === active ? "opacity-100" : "opacity-0"}`}
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 motion-reduce:transition-none ${i === active ? "opacity-100" : "opacity-0"}`}
             />
           ),
         )}

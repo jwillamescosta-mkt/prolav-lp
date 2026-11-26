@@ -10,7 +10,8 @@ import { WhatsAppIcon } from "./WhatsAppIcon";
 import { WHATSAPP_MESSAGE } from "@/data/content";
 
 export function WhatsAppFloat() {
-  const [hidden, setHidden] = useState(false);
+  // Começa oculto: não pisca sobre o CTA da hero antes do observer (o efeito libera nas demais páginas)
+  const [hidden, setHidden] = useState(true);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   useEffect(() => captureUtms(), []);
 

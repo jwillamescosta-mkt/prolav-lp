@@ -16,7 +16,10 @@ declare global {
 const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "gclid", "fbclid"] as const;
 const STORAGE_KEY = "prolav_utms";
 
-/** Lê UTMs da URL e salva no sessionStorage (chamar em useEffect). */
+// Cópia de 30 dias no localStorage: o navegador do Instagram reabre o link em nova sessão e o sessionStorage se perde
+const MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000;
+
+/** Lê UTMs da URL e salva na sessão + 30 dias (chamar em useEffect). */
 export function captureUtms() {
   if (typeof window === "undefined") return;
   const params = new URLSearchParams(window.location.search);
@@ -25,13 +28,23 @@ export function captureUtms() {
     const v = params.get(k);
     if (v) found[k] = v;
   });
-  if (Object.keys(found).length) sessionStorage.setItem(STORAGE_KEY, JSON.stringify(found));
+  if (Object.keys(found).length) {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(found));
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ t: Date.now(), utms: found }));
+    } catch {
+      /* armazenamento bloqueado: fica só a sessão */
+    }
+  }
   captureSource();
 }
 
 function getUtms(): Record<string, string> {
   try {
-    return JSON.parse(sessionStorage.getItem(STORAGE_KEY) || "{}");
+    const session = sessionStorage.getItem(STORAGE_KEY);
+    if (session) return JSON.parse(session);
+    const saved = JSON.parse(window.localStorage?.getItem(STORAGE_KEY) || "{}");
+    return saved.t && Date.now() - saved.t < MAX_AGE_MS ? saved.utms : {};
   } catch {
     return {};
   }

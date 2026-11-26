@@ -270,7 +270,7 @@ export const LP_SERVICES = {
 export const LP_CLOSING = {
   kicker: "Dúvidas rápidas",
   /** Índices das perguntas de CLOSING.faq mostradas aqui (as mais decisivas para fechar). */
-  faqPick: [2, 0, 3, 5],
+  faqPick: [7, 2, 0, 3, 6, 8],
   finalTitle: "Comece com uma foto.",
   finalText: "A agenda é montada por região. Quanto antes você chamar, mais perto fica a sua data.",
   cta: "Enviar foto no WhatsApp",

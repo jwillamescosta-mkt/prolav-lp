@@ -26,7 +26,7 @@ export function LpHeader() {
         </a>
         <button
           onClick={() => startLead("lp-header", LP_HERO.ctaMessage, openWhatsApp)}
-          className="btn-whatsapp h-10 px-4 text-sm"
+          className="btn-whatsapp h-11 px-4 text-sm"
         >
           <WhatsAppIcon className="h-4 w-4" />
           Orçamento

@@ -50,9 +50,13 @@ export const Route = createFileRoute("/")({
               areaServed: [
                 { "@type": "City", name: "Maceió" },
                 { "@type": "AdministrativeArea", name: "Alagoas" },
+                ...CLOSING.areas.map((name) => ({ "@type": "Place", name: `${name}, Maceió - AL` })),
               ],
               address: { "@type": "PostalAddress", addressLocality: "Maceió", addressRegion: "AL", addressCountry: "BR" },
               sameAs: [CLOSING.instagram.url],
+              priceRange: "$$$",
+              foundingDate: "2021",
+              geo: { "@type": "GeoCoordinates", latitude: -9.6658, longitude: -35.7353 },
               hasOfferCatalog: {
                 "@type": "OfferCatalog",
                 name: "Serviços PROLAV",

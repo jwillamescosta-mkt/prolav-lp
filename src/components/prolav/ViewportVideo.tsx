@@ -35,7 +35,8 @@ export function ViewportVideo({ src, poster, label, className = "", active = tru
       <video
         ref={ref}
         src={loaded ? src : undefined}
-        poster={poster}
+        // Capa só perto da tela: não disputa banda com o LCP da hero
+        poster={loaded ? poster : undefined}
         muted
         loop
         playsInline
