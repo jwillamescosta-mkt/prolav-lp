@@ -92,6 +92,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "PROLAV | Higienização & Blindagem de Estofados em Maceió" },
       { name: "description", content: "Higienização e blindagem de estofados em Maceió/AL." },
       { name: "theme-color", content: "#0B1E36" },
+      // Verificação do Google Search Console (propriedade https://prolav-lp.lovable.app/). Não remover.
+      { name: "google-site-verification", content: "C0DmdHSAgwfk39fAcFDggIJEDyQdvG1Q4tSshtsOb_Q" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
